@@ -79,8 +79,25 @@ body { font-family: 'Inter', sans-serif; background: #2a2520; color: #e8e0d4; ov
 
 .popup-photo {
   width: 100%; height: 140px; object-fit: cover; border-radius: 8px; margin-bottom: 14px;
-  border: 1px solid rgba(180,155,100,0.2);
+  border: 1px solid rgba(212,168,83,0.15);
 }
+.photo-collage {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 14px; border-radius: 8px; overflow: hidden;
+}
+.photo-collage.three { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.photo-collage.three img:first-child { grid-row: 1 / 3; }
+.photo-collage.four { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.photo-collage img {
+  width: 100%; height: 100%; object-fit: cover; min-height: 80px;
+  transition: opacity 0.3s;
+}
+.photo-collage img:hover { opacity: 0.85; }
+.photo-label {
+  position: absolute; bottom: 4px; left: 4px; font-size: 9px; color: #fff;
+  background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px;
+  pointer-events: none;
+}
+.photo-cell { position: relative; overflow: hidden; }
 
 .popup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
 .popup-stat {
@@ -144,7 +161,7 @@ body { font-family: 'Inter', sans-serif; background: #2a2520; color: #e8e0d4; ov
 
 <div class="header-overlay">
   <h1>Emma &amp; Rob — Where Next?</h1>
-  <p>11 cities · all the data · one big decision</p>
+  <p>10 cities · all the data · one big decision</p>
 </div>
 
 <div class="sidebar" id="sidebar">
@@ -160,6 +177,12 @@ const cities = [
     name: "San Diego", state: "California", tag: "The Dream", emoji: "☀️",
     lat: 32.7157, lng: -117.1611, sunny: 266, winter: 57, home: "$990K",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/San_Diego_Skyline.jpg/960px-San_Diego_Skyline.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/2113566/pexels-photo-2113566.jpeg?w=400&h=300&fit=crop", label: "Coronado Beach" },
+      { url: "https://images.pexels.com/photos/1619569/pexels-photo-1619569.jpeg?w=400&h=300&fit=crop", label: "La Jolla Cove" },
+      { url: "https://images.pexels.com/photos/3224154/pexels-photo-3224154.jpeg?w=400&h=300&fit=crop", label: "Balboa Park" },
+      { url: "https://images.pexels.com/photos/2929906/pexels-photo-2929906.jpeg?w=400&h=300&fit=crop", label: "Gaslamp Quarter" }
+    ],
     vibe: "Eternal golden hour. Surfers at sunrise, fish tacos at sunset, jacaranda trees lining every street in purple. The air smells like salt and sunscreen year-round. People jog in January wearing shorts. It almost feels unfair.",
     water: "Pacific Ocean — 70 miles of beaches",
     safety: { score: 350, label: "🟡 Average for a big city", pct: 55 },
@@ -188,6 +211,12 @@ const cities = [
     name: "Charleston", state: "South Carolina", tag: "The Beauty", emoji: "🌺",
     lat: 32.7765, lng: -79.9311, sunny: 220, winter: 48, home: "$475K",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Rainbow_Row.jpg/960px-Rainbow_Row.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/6267/menu-restaurant-vintage-table.jpg?w=400&h=300&fit=crop", label: "Southern Dining" },
+      { url: "https://images.pexels.com/photos/2901209/pexels-photo-2901209.jpeg?w=400&h=300&fit=crop", label: "Historic Streets" },
+      { url: "https://images.pexels.com/photos/462024/pexels-photo-462024.jpeg?w=400&h=300&fit=crop", label: "Waterfront" },
+      { url: "https://images.pexels.com/photos/1029604/pexels-photo-1029604.jpeg?w=400&h=300&fit=crop", label: "Spanish Moss" }
+    ],
     vibe: "Pastel row houses, wrought iron gates, church steeples breaking the skyline. Horse-drawn carriages on cobblestone. Sweet tea on the porch while Spanish moss sways overhead. Every block is a painting. The humidity is the price of admission — and it's worth it.",
     water: "Atlantic coast + harbor, Sullivan's Island & Folly Beach",
     safety: { score: 350, label: "🟡 Average", pct: 55 },
@@ -216,6 +245,12 @@ const cities = [
     name: "Victoria", state: "British Columbia", tag: "The Canada Pick", emoji: "🍁",
     lat: 48.4284, lng: -123.3656, sunny: 217, winter: 40, home: "$620K",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/British_Columbia_Parliament_Buildings.jpg/960px-British_Columbia_Parliament_Buildings.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/2845013/pexels-photo-2845013.jpeg?w=400&h=300&fit=crop", label: "Inner Harbour" },
+      { url: "https://images.pexels.com/photos/2132180/pexels-photo-2132180.jpeg?w=400&h=300&fit=crop", label: "Gardens" },
+      { url: "https://images.pexels.com/photos/1903702/pexels-photo-1903702.jpeg?w=400&h=300&fit=crop", label: "Pacific Coast" },
+      { url: "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?w=400&h=300&fit=crop", label: "Tea & Charm" }
+    ],
     vibe: "Tea rooms and totem poles. The Inner Harbour at dusk with the Parliament lit up like a fairy tale. Orcas in the strait, float planes landing on the water, hanging flower baskets on every lamp post. It's the most British place in North America and somehow that works. Cozy, civilized, quietly stunning.",
     water: "Pacific / Salish Sea — waterfront everywhere",
     safety: { score: 100, label: "🟢 Very safe (Canada advantage)", pct: 90 },
@@ -245,6 +280,12 @@ const cities = [
     name: "Savannah", state: "Georgia", tag: "Emma's City 💛", emoji: "🌿",
     lat: 32.0809, lng: -81.0912, sunny: 216, winter: 50, home: "$320K",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Forsyth_Park_Fountain.jpg/960px-Forsyth_Park_Fountain.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/1029604/pexels-photo-1029604.jpeg?w=400&h=300&fit=crop", label: "Spanish Moss" },
+      { url: "https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?w=400&h=300&fit=crop", label: "Historic Squares" },
+      { url: "https://images.pexels.com/photos/1078981/pexels-photo-1078981.jpeg?w=400&h=300&fit=crop", label: "Southern Charm" },
+      { url: "https://images.pexels.com/photos/1530259/pexels-photo-1530259.jpeg?w=400&h=300&fit=crop", label: "Tybee Island" }
+    ],
     vibe: "Spanish moss dripping like curtains over 22 perfect squares. Forsyth Park fountain at golden hour. The smell of pralines from River Street. Midnight in the Garden of Good and Evil energy — beautiful, a little haunted, completely intoxicating. You already know this city's heartbeat. It knows yours too.",
     water: "Savannah River + Tybee Island beach 20 min away",
     safety: { score: 350, label: "🟡 Average — varies by neighborhood", pct: 55 },
@@ -275,6 +316,12 @@ const cities = [
     name: "Annapolis", state: "Maryland", tag: "The Complete Package", emoji: "⚓",
     lat: 38.9784, lng: -76.4922, sunny: 205, winter: 37, home: "$475K",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Annapolis_Maryland.jpg/960px-Annapolis_Maryland.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/1295036/pexels-photo-1295036.jpeg?w=400&h=300&fit=crop", label: "Sailboats at Dock" },
+      { url: "https://images.pexels.com/photos/1098460/pexels-photo-1098460.jpeg?w=400&h=300&fit=crop", label: "Colonial Architecture" },
+      { url: "https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?w=400&h=300&fit=crop", label: "Chesapeake Bay" },
+      { url: "https://images.pexels.com/photos/2092897/pexels-photo-2092897.jpeg?w=400&h=300&fit=crop", label: "Cobblestone Streets" }
+    ],
     vibe: "Sailboats rocking at City Dock. Brick sidewalks worn smooth by 300 years of footsteps. Midshipmen in white uniforms crossing the yard. Crabs on newspaper with Old Bay and cold beer while the sun sets over the Chesapeake. Colonial America that never stopped breathing. Small town heart, capital city bones.",
     water: "Chesapeake Bay + Severn River — the Sailing Capital of the US",
     safety: { score: 250, label: "🟢 Safe, especially the historic district", pct: 70 },
@@ -306,6 +353,12 @@ const cities = [
     name: "Wilmington", state: "Delaware", tag: "The Sleeper Pick 👀", emoji: "🚂",
     lat: 39.7391, lng: -75.5398, sunny: 202, winter: 34, home: "$280K",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Longwood_Gardens.jpg/960px-Longwood_Gardens.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/2875432/pexels-photo-2875432.jpeg?w=400&h=300&fit=crop", label: "Longwood Gardens" },
+      { url: "https://images.pexels.com/photos/2539462/pexels-photo-2539462.jpeg?w=400&h=300&fit=crop", label: "Brandywine Valley" },
+      { url: "https://images.pexels.com/photos/3651820/pexels-photo-3651820.jpeg?w=400&h=300&fit=crop", label: "Train Station" },
+      { url: "https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?w=400&h=300&fit=crop", label: "Stone Colonial" }
+    ],
     vibe: "Nobody's first thought. Everyone's second look. The Brandywine Valley in autumn — du Pont estates glowing gold through the trees. Longwood Gardens in bloom. A quiet Amtrak platform and then suddenly you're in Manhattan. No sales tax. Real value. The kind of place that rewards people who actually do the research.",
     water: "Delaware River + beaches 45 min",
     safety: { score: 450, label: "🟠 Mixed — suburbs (Greenville, Hockessin) are very safe", pct: 40 },
@@ -337,6 +390,12 @@ const cities = [
     name: "Hudson Valley", state: "New York", tag: "Train to Rob's Old City", emoji: "🚃",
     lat: 41.5, lng: -73.9, sunny: 200, winter: 32, home: "$400K",
     photo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Hudson_River_from_Bear_Mountain.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/1563256/pexels-photo-1563256.jpeg?w=400&h=300&fit=crop", label: "Fall Foliage" },
+      { url: "https://images.pexels.com/photos/2832034/pexels-photo-2832034.jpeg?w=400&h=300&fit=crop", label: "Stone Walls" },
+      { url: "https://images.pexels.com/photos/3889704/pexels-photo-3889704.jpeg?w=400&h=300&fit=crop", label: "Farm to Table" },
+      { url: "https://images.pexels.com/photos/2260780/pexels-photo-2260780.jpeg?w=400&h=300&fit=crop", label: "River Views" }
+    ],
     vibe: "Stone walls along country roads. A converted factory housing world-class art. Farm-to-table dinners where the farmer is at the next table. The Hudson River wide and silver in morning light. Then you get on a train and 90 minutes later you're standing in Grand Central. Country soul, city heartbeat. Brooklyn emigrés who brought the good taste and left the rent behind.",
     water: "Hudson River",
     safety: { score: 180, label: "🟢 Very safe", pct: 80 },
@@ -367,6 +426,12 @@ const cities = [
     name: "Alexandria", state: "Virginia", tag: "Annapolis with a Subway", emoji: "🏛️",
     lat: 38.8048, lng: -77.0469, sunny: 210, winter: 36, home: "$650K",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Old_Town_Alexandria_from_George_Washington_Masonic_National_Memorial.jpg/960px-Old_Town_Alexandria_from_George_Washington_Masonic_National_Memorial.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/2092897/pexels-photo-2092897.jpeg?w=400&h=300&fit=crop", label: "Brick Row Houses" },
+      { url: "https://images.pexels.com/photos/2529179/pexels-photo-2529179.jpeg?w=400&h=300&fit=crop", label: "Potomac Waterfront" },
+      { url: "https://images.pexels.com/photos/1550337/pexels-photo-1550337.jpeg?w=400&h=300&fit=crop", label: "Metro Access" },
+      { url: "https://images.pexels.com/photos/2901209/pexels-photo-2901209.jpeg?w=400&h=300&fit=crop", label: "Historic Streets" }
+    ],
     vibe: "Cobblestone streets where the Founding Fathers actually walked. Brick row houses with window boxes overflowing with flowers. The Potomac glinting at the end of every east-west street. Waterfront restaurants where you watch boats drift by. Then you walk underground and 15 minutes later you're standing in the shadow of the Capitol. History that lives and breathes, with a Metro card in its pocket.",
     water: "Potomac River — waterfront boardwalk, kayaking, river views",
     safety: { score: 150, label: "🟢 Very safe", pct: 85 },
@@ -398,6 +463,12 @@ const cities = [
     name: "Santa Barbara", state: "California", tag: "The Premium Pick 🍷", emoji: "🌅",
     lat: 34.4208, lng: -119.6982, sunny: 283, winter: 54, home: "$1.5M",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Santa_Barbara_Courthouse.jpg/960px-Santa_Barbara_Courthouse.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/1268855/pexels-photo-1268855.jpeg?w=400&h=300&fit=crop", label: "Red Tile Roofs" },
+      { url: "https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?w=400&h=300&fit=crop", label: "Wine Country" },
+      { url: "https://images.pexels.com/photos/1032650/pexels-photo-1032650.jpeg?w=400&h=300&fit=crop", label: "Pacific Sunset" },
+      { url: "https://images.pexels.com/photos/1268871/pexels-photo-1268871.jpeg?w=400&h=300&fit=crop", label: "Spanish Architecture" }
+    ],
     vibe: "Red tile roofs cascading down to the Pacific. Bougainvillea climbing white stucco walls. The courthouse — a literal Spanish castle you can get married in — has a clock tower with views that make you forget what stress feels like. Wine country is 30 minutes away. The ocean is 5. Every restaurant has a patio. Every sunset is showing off.",
     water: "Pacific Ocean — Butterfly Beach, Leadbetter, East Beach. Harbor with sailboats.",
     safety: { score: 280, label: "🟢 Safe", pct: 70 },
@@ -428,6 +499,12 @@ const cities = [
     name: "San Luis Obispo", state: "California", tag: "The Happy Place 😊", emoji: "🌻",
     lat: 35.2828, lng: -120.6596, sunny: 275, winter: 45, home: "$850K",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Mission_San_Luis_Obispo.jpg/960px-Mission_San_Luis_Obispo.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/1032650/pexels-photo-1032650.jpeg?w=400&h=300&fit=crop", label: "California Coast" },
+      { url: "https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?w=400&h=300&fit=crop", label: "Wine Country" },
+      { url: "https://images.pexels.com/photos/1032651/pexels-photo-1032651.jpeg?w=400&h=300&fit=crop", label: "Beach Days" },
+      { url: "https://images.pexels.com/photos/2404046/pexels-photo-2404046.jpeg?w=400&h=300&fit=crop", label: "Farmers Market" }
+    ],
     vibe: "There's a reason they keep calling it the happiest city in America. Thursday night farmers market shuts down Higuera Street — the whole town shows up with wine and tri-tip. Cal Poly students on bikes. Mission San Luis Obispo in the town center. The Pacific is 15 minutes away but you almost forget because downtown is so good you don't want to leave. Paso Robles wine country is 30 minutes north and it's Napa without the attitude.",
     water: "Pacific beaches 15 min (Avila Beach, Pismo Beach, Morro Bay)",
     safety: { score: 200, label: "🟢 Very safe", pct: 80 },
@@ -453,37 +530,6 @@ const cities = [
       { name: "Avila Beach (15 min)", desc: "Actual beach town on the water. Small, sunny (even when SLO is foggy), boardwalk. Vacation-vibe living.", price: "$900K–$1.5M" },
       { name: "Pismo Beach (15 min south)", desc: "Classic California beach town. Pier, clam chowder, monarch butterflies. More affordable beach option.", price: "$800K–$1.3M" },
       { name: "Morro Bay (20 min north)", desc: "Morro Rock, fishing village charm, otters in the harbor. Funky, artsy, affordable for the coast.", price: "$700K–$1M" }
-    ]
-  },
-  {
-    name: "Pasadena", state: "California", tag: "California's Evanston 🌹", emoji: "🏡",
-    lat: 34.1478, lng: -118.1445, sunny: 286, winter: 52, home: "$1.1M",
-    photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Pasadena_City_Hall.jpg/960px-Pasadena_City_Hall.jpg",
-    vibe: "Rose Parade floats being built in warehouses. Craftsman bungalows with deep porches and original woodwork. Caltech geniuses at the coffee shop next to JPL rocket scientists. Old Town's Colorado Boulevard for dinner and a movie. The San Gabriel mountains as your daily backdrop. It's the Evanston of LA — its own city with its own identity, 20 minutes from everything, but you never need to leave if you don't want to.",
-    water: "No ocean (LA beaches 30-40 min) — but mountains, Arroyo Seco, Rose Bowl loop",
-    safety: { score: 280, label: "🟢 Safe for LA metro", pct: 70 },
-    transit: { stars: 4, label: "LA Metro Gold Line! Direct train to downtown LA. That's rare in California." },
-    architecture: { stars: 5, label: "Craftsman Bungalow CAPITAL. Gamble House (masterpiece). City Hall. Spanish Colonial. Mid-century. Greene & Greene." },
-    airport: "LAX 45 min, BUR (Burbank) 20 min, ONT (Ontario) 40 min",
-    homeVal: 1100, note: "🌹 The Evanston parallel is real — own city identity, 20 min from the big city, great architecture, walkable downtown. If you love what Evanston is to Chicago, you'll love what Pasadena is to LA.",
-    transitRoutes: [
-      { to: "Downtown Los Angeles", mode: "🚇", time: "20 min (Gold Line Metro)" },
-      { to: "Santa Monica / Beaches", mode: "🚇🚗", time: "40-50 min" },
-      { to: "Burbank (studios, airport)", mode: "🚗", time: "20 min" },
-      { to: "San Diego", mode: "🚗🚂", time: "2 hrs (Amtrak Surfliner)" }
-    ],
-    airports: [
-      { code: "BUR", name: "Hollywood Burbank", dist: "20 min", intl: false },
-      { code: "LAX", name: "Los Angeles Intl", dist: "45 min", intl: true },
-      { code: "ONT", name: "Ontario Intl", dist: "40 min", intl: true }
-    ],
-    houseStyles: ["Craftsman Bungalow", "Spanish Colonial Revival", "Mid-Century Modern", "Mediterranean", "Greene & Greene", "California Ranch"],
-    neighborhoods: [
-      { name: "Bungalow Heaven", desc: "Literally named for its architecture. 800+ Craftsman bungalows in a designated landmark district. Deep porches, original woodwork, neighborhood pride.", price: "$900K–$1.4M" },
-      { name: "Old Town", desc: "Colorado Boulevard — walkable dining, shopping, movies. The social center. Condos and townhomes above, restaurants below.", price: "$600K–$1M (condos)" },
-      { name: "South Pasadena (adjacent)", desc: "Even more charming small-town feel. Mission Street has that indie main-street energy. Great schools. Beloved by families.", price: "$1.1M–$1.8M" },
-      { name: "Linda Vista / Annandale", desc: "Near Rose Bowl, hillside homes with views. Mix of ranch homes and Spanish colonials. Quiet, established, gorgeous.", price: "$1.2M–$2M" },
-      { name: "Altadena (just north)", desc: "Unincorporated, more space, mountain views. Black-owned businesses, creative community. Craftsmans and ranches on bigger lots. More affordable entry.", price: "$800K–$1.2M" }
     ]
   }
 ];
@@ -539,7 +585,16 @@ function makePopup(c) {
       <div class="popup-tag">${c.tag}</div>
       <div class="popup-city">${c.name}</div>
       <div class="popup-state">${c.state}</div>
-      <img class="popup-photo" src="${c.photo}" alt="${c.name}" onerror="this.style.display='none'" />
+      ${c.collage && c.collage.length > 0 ? `
+        <div class="photo-collage four">
+          ${c.collage.map(p => `
+            <div class="photo-cell">
+              <img src="${p.url}" alt="${p.label}" onerror="this.parentElement.style.display='none'" />
+              <div class="photo-label">${p.label}</div>
+            </div>
+          `).join('')}
+        </div>
+      ` : `<img class="popup-photo" src="${c.photo}" alt="${c.name}" onerror="this.style.display='none'" />`}
       <div class="popup-vibe">${c.vibe}</div>
       <div class="popup-grid">
         <div class="popup-stat">
