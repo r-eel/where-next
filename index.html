@@ -107,6 +107,27 @@ body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e8e4df; ov
 .popup-note.warning { border-left: 2px solid #e8945a; }
 .popup-note.highlight { border-left: 2px solid #6ecf8e; }
 
+.popup-section-title {
+  font-family: 'Playfair Display', serif; font-size: 14px; color: #d4a853;
+  margin-top: 16px; margin-bottom: 8px;
+}
+.neighborhood-card {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 10px 12px; margin-bottom: 8px;
+}
+.neighborhood-name { font-size: 13px; font-weight: 600; color: #e8e4df; margin-bottom: 3px; }
+.neighborhood-desc { font-size: 11px; color: #8a8578; line-height: 1.5; }
+.neighborhood-price { font-size: 11px; color: #d4a853; margin-top: 3px; font-weight: 500; }
+
+.house-styles {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; margin-bottom: 8px;
+}
+.house-style-tag {
+  font-size: 10px; padding: 4px 10px; border-radius: 20px;
+  background: rgba(212,168,83,0.1); border: 1px solid rgba(212,168,83,0.2);
+  color: #d4a853; letter-spacing: 0.5px;
+}
+
 @media (max-width: 700px) {
   .sidebar { display: none; }
   .header-overlay h1 { font-size: 20px; }
@@ -144,7 +165,15 @@ const cities = [
     transit: { stars: 4, label: "Trolley + bus + Coaster commuter rail" },
     architecture: { stars: 4, label: "Spanish Colonial, mid-century modern, Gaslamp Victorian" },
     airport: "SAN (international)",
-    homeVal: 990, note: null
+    homeVal: 990, note: null,
+    houseStyles: ["Spanish Colonial Revival", "Mid-Century Modern", "Craftsman Bungalow", "Mediterranean Villa", "Beach Contemporary"],
+    neighborhoods: [
+      { name: "North Park", desc: "Walkable, artsy, Craftsman bungalows with character. Great restaurants, bars, coffee shops on every corner. The 'Brooklyn of San Diego.'", price: "$900K–$1.2M" },
+      { name: "La Jolla", desc: "Oceanfront cliffs, sea caves, world-class dining. UCSD nearby. Mediterranean villas and mid-century gems. Affluent but stunning.", price: "$1.5M–$3M+" },
+      { name: "Encinitas / Leucadia", desc: "Laid-back surf town vibe. Beach cottages to modern builds. Excellent schools. Feels like old California.", price: "$1.2M–$2M" },
+      { name: "Hillcrest", desc: "Progressive, walkable, diverse. Balboa Park is your backyard. Spanish Colonial apartments and renovated bungalows.", price: "$650K–$1M" },
+      { name: "Del Mar / Carmel Valley", desc: "Family-oriented, top-rated schools, newer builds. Horse racing, ocean views, upscale suburban with access to everything.", price: "$1.3M–$2.5M" }
+    ]
   },
   {
     name: "Charleston", state: "South Carolina", tag: "The Beauty", emoji: "🌺",
@@ -156,7 +185,15 @@ const cities = [
     transit: { stars: 2, label: "Bus + walkable downtown, mostly car-dependent" },
     architecture: { stars: 5, label: "Rainbow Row, antebellum mansions, cobblestone, steeples" },
     airport: "CHS (international)",
-    homeVal: 475, note: "⚠️ SC politics — the city itself is progressive, but the state is solidly red. Something to weigh honestly."
+    homeVal: 475, note: "⚠️ SC politics — the city itself is progressive, but the state is solidly red. Something to weigh honestly.",
+    houseStyles: ["Antebellum Mansion", "Charleston Single House", "Greek Revival", "Federal", "Lowcountry Cottage", "Victorian"],
+    neighborhoods: [
+      { name: "South of Broad", desc: "THE iconic Charleston neighborhood. Rainbow Row, cobblestone, Battery promenade. Pastel mansions behind wrought iron gates. Pure magic.", price: "$1.5M–$5M+" },
+      { name: "Harleston Village", desc: "Tree-lined streets, College of Charleston campus, walkable to everything. Mix of historic homes and renovated apartments.", price: "$700K–$1.5M" },
+      { name: "Mount Pleasant", desc: "Across the bridge — family-friendly, great schools, newer builds. Shem Creek for waterfront dining. More space for the money.", price: "$500K–$900K" },
+      { name: "Park Circle (North Charleston)", desc: "Up-and-coming, artsy, affordable. Bungalows and cottages. Breweries and restaurants popping up. Getting discovered.", price: "$350K–$550K" },
+      { name: "Sullivan's Island", desc: "Quiet beach island, no commercial boardwalk — just dunes, old beach houses, and neighbors who wave. Edgar Allan Poe was stationed here.", price: "$1.5M–$4M" }
+    ]
   },
   {
     name: "Victoria", state: "British Columbia", tag: "The Canada Pick", emoji: "🍁",
@@ -168,7 +205,15 @@ const cities = [
     transit: { stars: 3, label: "Bus + very walkable/bikeable + ferry to Vancouver" },
     architecture: { stars: 4, label: "Parliament, Empress Hotel, British colonial, Craigdarroch Castle" },
     airport: "YYJ (international)",
-    homeVal: 620, note: null
+    homeVal: 620, note: null,
+    houseStyles: ["Victorian", "Edwardian", "British Colonial", "Tudor Revival", "West Coast Modern", "Heritage Cottage"],
+    neighborhoods: [
+      { name: "James Bay", desc: "Walking distance to Inner Harbour and Parliament. Quiet residential streets with heritage character homes. Fisherman's Wharf nearby.", price: "$750K–$1.2M CAD" },
+      { name: "Oak Bay", desc: "The 'tweed curtain' — English village vibes. Tudor homes, rose gardens, tea rooms, waterfront walks. Old money, old charm.", price: "$1.2M–$2.5M CAD" },
+      { name: "Fairfield / Gonzales", desc: "Near Beacon Hill Park and the ocean. Mix of heritage homes and newer builds. Walkable, family-friendly, gorgeous.", price: "$900K–$1.5M CAD" },
+      { name: "Fernwood", desc: "Artsy, diverse, independent shops. Victorian cottages and funky renovations. The 'cool' neighborhood.", price: "$700K–$1M CAD" },
+      { name: "Broadmead / Royal Oak", desc: "Suburban, more affordable, good schools. Modern builds with yards. Quieter pace, 15 min to downtown.", price: "$850K–$1.2M CAD" }
+    ]
   },
   {
     name: "Savannah", state: "Georgia", tag: "Emma's City 💛", emoji: "🌿",
@@ -180,7 +225,15 @@ const cities = [
     transit: { stars: 2, label: "Bus + most walkable historic district in America" },
     architecture: { stars: 5, label: "22 squares, Italianate mansions, Gothic Revival, Forsyth Park" },
     airport: "SAV (international)",
-    homeVal: 320, note: "💛 Emma went to SCAD here — you have roots, friends, and real knowledge of this city. That's a huge advantage."
+    homeVal: 320, note: "💛 Emma went to SCAD here — you have roots, friends, and real knowledge of this city. That's a huge advantage.",
+    houseStyles: ["Italianate", "Greek Revival", "Georgian", "Victorian", "Gothic Revival", "Lowcountry Cottage"],
+    neighborhoods: [
+      { name: "Historic District (Downtown)", desc: "The 22 squares. Forsyth Park. Row houses dripping with history. Walking to everything — restaurants, galleries, River Street. This IS Savannah.", price: "$450K–$1.2M" },
+      { name: "Starland District", desc: "Emerging arts district south of Forsyth. Murals, coffee shops, vintage stores. Victorian cottages being lovingly restored. SCAD energy everywhere.", price: "$300K–$600K" },
+      { name: "Ardsley Park / Chatham Crescent", desc: "Tree-lined boulevards, 1920s homes, wide porches. Families, dog walkers, front-yard conversations. Classic Savannah residential.", price: "$400K–$800K" },
+      { name: "Tybee Island", desc: "Beach living 20 min from downtown. Colorful beach cottages, pelicans, seafood shacks. Laid-back island energy year-round.", price: "$400K–$900K" },
+      { name: "Thunderbolt / Isle of Hope", desc: "Marsh views, oak canopies, old Savannah money. Bluff Drive on Isle of Hope is one of the most beautiful streets in the South.", price: "$350K–$750K" }
+    ]
   },
   {
     name: "Raleigh-Durham", state: "North Carolina", tag: "The Practical Pick", emoji: "📐",
@@ -192,7 +245,15 @@ const cities = [
     transit: { stars: 2, label: "Bus only — rail has been planned for years, keeps stalling" },
     architecture: { stars: 2.5, label: "Duke Chapel (stunning), NC Capitol, historic Oakwood" },
     airport: "RDU (international)",
-    homeVal: 425, note: null
+    homeVal: 425, note: null,
+    houseStyles: ["Colonial Revival", "Modern Farmhouse", "Ranch", "New Traditional", "Contemporary"],
+    neighborhoods: [
+      { name: "Downtown Durham (American Tobacco)", desc: "Converted warehouses, walkable, great food scene. Durham Bulls ballpark. Young, creative, startup energy.", price: "$400K–$700K" },
+      { name: "Cary", desc: "Top-rated schools, safe, family-oriented. Newer builds, planned communities, greenways. Sometimes called 'Containment Area for Relocated Yankees' 😂", price: "$450K–$750K" },
+      { name: "Chapel Hill", desc: "UNC college town charm. Walkable Franklin Street, bookstores, restaurants. Beautiful older homes near campus.", price: "$500K–$900K" },
+      { name: "North Hills (Raleigh)", desc: "Mixed-use development — restaurants, shopping, offices all walkable. Modern condos and townhomes. The 'Midtown' of Raleigh.", price: "$400K–$650K" },
+      { name: "Historic Oakwood (Raleigh)", desc: "Victorian homes with wraparound porches, picket fences, gas lamps. Walking distance to downtown Raleigh. Pure charm.", price: "$500K–$800K" }
+    ]
   },
   {
     name: "Annapolis", state: "Maryland", tag: "The Complete Package", emoji: "⚓",
@@ -204,7 +265,15 @@ const cities = [
     transit: { stars: 3, label: "MARC train to DC/Baltimore, BWI 20 min, DCA 40 min" },
     architecture: { stars: 5, label: "Most 18th-century buildings in the US. Naval Academy. Georgian mansions. Gas lamps." },
     airport: "BWI 20 min + DCA 40 min (two international airports!)",
-    homeVal: 475, note: "✨ Basically Evanston on the Chesapeake — own identity, 30 min from a world capital, water everywhere."
+    homeVal: 475, note: "✨ Basically Evanston on the Chesapeake — own identity, 30 min from a world capital, water everywhere.",
+    houseStyles: ["Georgian", "Federal", "Colonial", "Victorian", "Cape Cod", "Waterfront Contemporary"],
+    neighborhoods: [
+      { name: "Historic Downtown", desc: "Brick row houses, cobblestone, City Dock. 300 years of architecture on every block. Walk to everything — restaurants, Naval Academy, waterfront. The heart.", price: "$600K–$1.5M" },
+      { name: "Eastport", desc: "Across Spa Creek from downtown — the 'maritime republic.' Sailboat views from your porch. Small-town-within-a-town. Annual tug of war with downtown.", price: "$500K–$900K" },
+      { name: "West Annapolis", desc: "Walkable to downtown, quieter. Mid-century ranches to renovated colonials. Neighborhood bars and coffee shops.", price: "$450K–$750K" },
+      { name: "Severna Park", desc: "Just north — top-rated schools, family-oriented, waterfront access. Newer colonials and Cape Cods. The 'raise your kids here' pick.", price: "$500K–$800K" },
+      { name: "Edgewater / Mayo Peninsula", desc: "More rural, bigger lots, water access. Newer builds with waterfront potential. More affordable than downtown but you need a car.", price: "$400K–$700K" }
+    ]
   },
   {
     name: "Wilmington", state: "Delaware", tag: "The Sleeper Pick 👀", emoji: "🚂",
@@ -216,7 +285,15 @@ const cities = [
     transit: { stars: 4, label: "Amtrak NE Corridor! NYC 1.5h, DC 1.5h, Philly 20 min" },
     architecture: { stars: 3, label: "Brandywine mansions, du Pont estates, Winterthur, Longwood Gardens" },
     airport: "PHL 25 min (major international hub)",
-    homeVal: 280, note: "🏠 7 Emma Drive exists here. Born on the 7th. No sales tax. The universe is not being subtle."
+    homeVal: 280, note: "🏠 7 Emma Drive exists here. Born on the 7th. No sales tax. The universe is not being subtle.",
+    houseStyles: ["Stone Colonial", "du Pont Estate", "Federal", "Victorian", "Brandywine Valley Manor", "Contemporary"],
+    neighborhoods: [
+      { name: "Greenville", desc: "THE premier neighborhood. Rolling hills, stone walls, estate homes, du Pont legacy. Winterthur and Longwood Gardens are your neighbors. Old money, old trees.", price: "$800K–$2M+" },
+      { name: "Hockessin", desc: "Family-friendly, excellent schools (Red Clay district), newer builds mixed with wooded lots. Safe, quiet, community-oriented.", price: "$450K–$800K" },
+      { name: "Centreville (just across in MD)", desc: "Horse country. Stone farmhouses, rolling pastures, covered bridges. 15 min to Wilmington. Feels like you're in the English countryside.", price: "$500K–$1M" },
+      { name: "Trolley Square / Forty Acres", desc: "In-city walkable neighborhoods. Victorian row houses, restaurants, neighborhood bars. The urban option.", price: "$300K–$550K" },
+      { name: "Kennett Square (PA border)", desc: "Mushroom Capital of the World (really). Charming small-town main street, Longwood Gardens 5 min away. Growing food scene.", price: "$400K–$700K" }
+    ]
   },
   {
     name: "Hudson Valley", state: "New York", tag: "Train to Rob's Old City", emoji: "🚃",
@@ -228,7 +305,15 @@ const cities = [
     transit: { stars: 3, label: "Metro North / Amtrak to NYC 1.5-2 hrs" },
     architecture: { stars: 4, label: "Dutch stone houses, Gilded Age estates, Dia:Beacon, Roosevelt/Vanderbilt" },
     airport: "NYC airports 1.5-2 hrs",
-    homeVal: 400, note: "🏙️ Rob lived in NYC — this keeps that connection alive with a train ride, not a flight."
+    homeVal: 400, note: "🏙️ Rob lived in NYC — this keeps that connection alive with a train ride, not a flight.",
+    houseStyles: ["Dutch Stone Colonial", "Gilded Age Estate", "Greek Revival", "Victorian Farmhouse", "Arts & Crafts", "Converted Barn/Mill"],
+    neighborhoods: [
+      { name: "Beacon", desc: "Dia:Beacon (world-class art in a massive converted factory). Main Street is thriving — restaurants, galleries, vintage shops. Train to NYC. THE Hudson Valley town.", price: "$450K–$800K" },
+      { name: "Cold Spring", desc: "Tiny, gorgeous, right on the river. Antique shops on Main Street, hiking at Breakneck Ridge, Storm King Art Center nearby. Feels like a movie set.", price: "$500K–$900K" },
+      { name: "Rhinebeck", desc: "Old Dutch stone houses, farm stands, the Beekman Arms (oldest inn in America). Chelsea Clinton got married here. Refined without being pretentious.", price: "$500K–$1M" },
+      { name: "Hudson", desc: "Former whaling town turned art/antique mecca. Warren Street is one of the best main streets in America. Restaurants that rival Brooklyn. Amtrak stop.", price: "$350K–$700K" },
+      { name: "Kingston", desc: "First capital of New York State. Stockade District has 300-year-old stone houses. Rondout waterfront. Most affordable of the HV towns. Growing fast.", price: "$300K–$550K" }
+    ]
   },
   {
     name: "Asheville", state: "North Carolina", tag: "The Wild Card", emoji: "🎸",
@@ -240,7 +325,15 @@ const cities = [
     transit: { stars: 1, label: "Minimal bus, fully car-dependent" },
     architecture: { stars: 4, label: "Biltmore Estate (250 rooms!), Art Deco downtown, Grove Park Inn" },
     airport: "AVL (limited) — CLT 2 hrs for international",
-    homeVal: 400, note: null
+    homeVal: 400, note: null,
+    houseStyles: ["Arts & Crafts", "Art Deco", "Log Cabin Luxe", "Mountain Contemporary", "Victorian", "Château (Biltmore vibes)"],
+    neighborhoods: [
+      { name: "Montford", desc: "Walking distance to downtown. Grand Victorians and Arts & Crafts homes on tree-lined streets. Historic district with real character. The 'it' neighborhood.", price: "$500K–$900K" },
+      { name: "West Asheville", desc: "Haywood Road — breweries, coffee shops, vintage stores, tattoo parlors. Bungalows and cottages. The creative/quirky side of town.", price: "$350K–$600K" },
+      { name: "North Asheville / Grove Park", desc: "Near the Grove Park Inn. Established homes with mountain views, mature trees. Tunnel Road shopping nearby. Family-friendly.", price: "$450K–$850K" },
+      { name: "Black Mountain (15 min east)", desc: "Small-town charmer. 'The front porch of Western NC.' Cherry Street downtown is adorable. Mountain views everywhere. Quieter pace.", price: "$350K–$600K" },
+      { name: "Weaverville (10 min north)", desc: "Growing fast. Main Street with local shops, mountain-modern new builds, more land for the money. Good schools.", price: "$350K–$550K" }
+    ]
   }
 ];
 
@@ -334,6 +427,18 @@ function makePopup(c) {
         <div style="font-size:13px;color:#d4a853">${makeStars(c.architecture.stars)}</div>
       </div>
       <div style="font-size:11px;color:#6a6560;margin:-2px 0 8px 98px">${c.architecture.label}</div>
+      <div class="popup-section-title">🏡 House Architecture You'll See</div>
+      <div class="house-styles">
+        ${(c.houseStyles || []).map(s => `<span class="house-style-tag">${s}</span>`).join('')}
+      </div>
+      <div class="popup-section-title">📍 Best Neighborhoods</div>
+      ${(c.neighborhoods || []).map(n => `
+        <div class="neighborhood-card">
+          <div class="neighborhood-name">${n.name}</div>
+          <div class="neighborhood-desc">${n.desc}</div>
+          <div class="neighborhood-price">${n.price}</div>
+        </div>
+      `).join('')}
       ${noteHtml}
     </div>
   `;
