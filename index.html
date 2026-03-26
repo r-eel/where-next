@@ -8,124 +8,125 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e8e4df; overflow: hidden; height: 100vh; }
+body { font-family: 'Inter', sans-serif; background: #faf7f2; color: #3d3529; overflow: hidden; height: 100vh; }
 
 #map { width: 100%; height: 100vh; z-index: 1; }
 
 .header-overlay {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: linear-gradient(180deg, rgba(10,10,15,0.95) 0%, rgba(10,10,15,0.7) 70%, transparent 100%);
+  background: linear-gradient(180deg, rgba(250,247,242,0.97) 0%, rgba(250,247,242,0.8) 70%, transparent 100%);
   padding: 20px 24px 40px; pointer-events: none; text-align: center;
 }
 .header-overlay h1 {
   font-family: 'Playfair Display', serif; font-weight: 700; font-size: 28px;
-  color: #d4a853; letter-spacing: 2px; margin-bottom: 4px;
+  color: #8b6914; letter-spacing: 2px; margin-bottom: 4px;
 }
 .header-overlay p {
-  font-size: 13px; color: #8a8578; letter-spacing: 1px; font-weight: 300;
+  font-size: 13px; color: #9e9486; letter-spacing: 1px; font-weight: 300;
 }
 
 .sidebar {
   position: fixed; top: 90px; left: 16px; z-index: 1000;
-  background: rgba(15,15,22,0.92); backdrop-filter: blur(12px);
-  border: 1px solid rgba(212,168,83,0.2); border-radius: 12px;
+  background: rgba(255,252,247,0.95); backdrop-filter: blur(12px);
+  border: 1px solid rgba(180,155,100,0.25); border-radius: 12px;
   padding: 16px; width: 240px; max-height: calc(100vh - 120px);
   overflow-y: auto; pointer-events: auto;
+  box-shadow: 0 4px 20px rgba(120,100,60,0.1);
 }
 .sidebar h3 {
-  font-family: 'Playfair Display', serif; font-size: 14px; color: #d4a853;
+  font-family: 'Playfair Display', serif; font-size: 14px; color: #8b6914;
   margin-bottom: 12px; letter-spacing: 1px;
 }
 .sidebar-item {
   display: flex; align-items: center; gap: 10px; padding: 8px 10px;
   border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-bottom: 4px;
 }
-.sidebar-item:hover { background: rgba(212,168,83,0.1); }
-.sidebar-item.active { background: rgba(212,168,83,0.15); border: 1px solid rgba(212,168,83,0.3); }
+.sidebar-item:hover { background: rgba(180,155,100,0.1); }
+.sidebar-item.active { background: rgba(180,155,100,0.15); border: 1px solid rgba(180,155,100,0.3); }
 .sidebar-dot {
   width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
 }
-.sidebar-name { font-size: 13px; font-weight: 500; color: #e8e4df; }
-.sidebar-tag { font-size: 10px; color: #8a8578; display: block; margin-top: 1px; }
+.sidebar-name { font-size: 13px; font-weight: 500; color: #3d3529; }
+.sidebar-tag { font-size: 10px; color: #9e9486; display: block; margin-top: 1px; }
 
 .leaflet-popup-content-wrapper {
-  background: rgba(15,15,22,0.96) !important; backdrop-filter: blur(12px);
-  border: 1px solid rgba(212,168,83,0.25) !important; border-radius: 14px !important;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6) !important; padding: 0 !important;
+  background: rgba(255,252,247,0.98) !important; backdrop-filter: blur(12px);
+  border: 1px solid rgba(180,155,100,0.2) !important; border-radius: 14px !important;
+  box-shadow: 0 10px 40px rgba(120,100,60,0.15) !important; padding: 0 !important;
 }
-.leaflet-popup-tip { background: rgba(15,15,22,0.96) !important; }
+.leaflet-popup-tip { background: rgba(255,252,247,0.98) !important; }
 .leaflet-popup-content { margin: 0 !important; width: 340px !important; }
 .leaflet-popup-close-button {
-  color: #8a8578 !important; font-size: 20px !important; top: 8px !important; right: 12px !important;
+  color: #9e9486 !important; font-size: 20px !important; top: 8px !important; right: 12px !important;
 }
 
 .popup-inner { padding: 20px; }
 .popup-tag {
   font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
-  color: #d4a853; margin-bottom: 6px; font-weight: 600;
+  color: #8b6914; margin-bottom: 6px; font-weight: 600;
 }
 .popup-city {
   font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
-  color: #e8e4df; margin-bottom: 4px;
+  color: #3d3529; margin-bottom: 4px;
 }
-.popup-state { font-size: 13px; color: #8a8578; margin-bottom: 14px; }
+.popup-state { font-size: 13px; color: #9e9486; margin-bottom: 14px; }
 
 .popup-vibe {
-  font-size: 13px; line-height: 1.6; color: #b8b0a4; font-style: italic;
-  padding: 12px 14px; background: rgba(212,168,83,0.06); border-left: 2px solid #d4a853;
+  font-size: 13px; line-height: 1.6; color: #6b5d4d; font-style: italic;
+  padding: 12px 14px; background: rgba(180,155,100,0.08); border-left: 2px solid #c4a24e;
   border-radius: 0 8px 8px 0; margin-bottom: 16px;
 }
 
 .popup-photo {
   width: 100%; height: 140px; object-fit: cover; border-radius: 8px; margin-bottom: 14px;
-  border: 1px solid rgba(212,168,83,0.15);
+  border: 1px solid rgba(180,155,100,0.2);
 }
 
 .popup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
 .popup-stat {
-  background: rgba(255,255,255,0.03); border-radius: 8px; padding: 10px 12px;
-  border: 1px solid rgba(255,255,255,0.05);
+  background: rgba(180,155,100,0.06); border-radius: 8px; padding: 10px 12px;
+  border: 1px solid rgba(180,155,100,0.12);
 }
-.popup-stat-label { font-size: 10px; color: #6a6560; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
-.popup-stat-value { font-size: 15px; font-weight: 600; color: #e8e4df; }
+.popup-stat-label { font-size: 10px; color: #9e9486; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+.popup-stat-value { font-size: 15px; font-weight: 600; color: #3d3529; }
 
 .popup-section-label {
-  font-size: 10px; color: #6a6560; text-transform: uppercase; letter-spacing: 1px;
+  font-size: 10px; color: #9e9486; text-transform: uppercase; letter-spacing: 1px;
   margin-bottom: 6px; margin-top: 14px;
 }
 .popup-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.popup-bar-label { font-size: 12px; color: #8a8578; width: 90px; flex-shrink: 0; }
+.popup-bar-label { font-size: 12px; color: #7a6e60; width: 90px; flex-shrink: 0; }
 .popup-bar-track {
-  flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden;
+  flex: 1; height: 6px; background: rgba(180,155,100,0.12); border-radius: 3px; overflow: hidden;
 }
 .popup-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
 
 .popup-note {
-  font-size: 12px; color: #a09888; margin-top: 14px; padding: 10px 12px;
-  background: rgba(255,255,255,0.02); border-radius: 8px; line-height: 1.5;
+  font-size: 12px; color: #6b5d4d; margin-top: 14px; padding: 10px 12px;
+  background: rgba(180,155,100,0.06); border-radius: 8px; line-height: 1.5;
 }
-.popup-note.warning { border-left: 2px solid #e8945a; }
-.popup-note.highlight { border-left: 2px solid #6ecf8e; }
+.popup-note.warning { border-left: 2px solid #d4864a; }
+.popup-note.highlight { border-left: 2px solid #6aab72; }
 
 .popup-section-title {
-  font-family: 'Playfair Display', serif; font-size: 14px; color: #d4a853;
+  font-family: 'Playfair Display', serif; font-size: 14px; color: #8b6914;
   margin-top: 16px; margin-bottom: 8px;
 }
 .neighborhood-card {
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(180,155,100,0.06); border: 1px solid rgba(180,155,100,0.12);
   border-radius: 8px; padding: 10px 12px; margin-bottom: 8px;
 }
-.neighborhood-name { font-size: 13px; font-weight: 600; color: #e8e4df; margin-bottom: 3px; }
-.neighborhood-desc { font-size: 11px; color: #8a8578; line-height: 1.5; }
-.neighborhood-price { font-size: 11px; color: #d4a853; margin-top: 3px; font-weight: 500; }
+.neighborhood-name { font-size: 13px; font-weight: 600; color: #3d3529; margin-bottom: 3px; }
+.neighborhood-desc { font-size: 11px; color: #7a6e60; line-height: 1.5; }
+.neighborhood-price { font-size: 11px; color: #8b6914; margin-top: 3px; font-weight: 500; }
 
 .house-styles {
   display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; margin-bottom: 8px;
 }
 .house-style-tag {
   font-size: 10px; padding: 4px 10px; border-radius: 20px;
-  background: rgba(212,168,83,0.1); border: 1px solid rgba(212,168,83,0.2);
-  color: #d4a853; letter-spacing: 0.5px;
+  background: rgba(180,155,100,0.1); border: 1px solid rgba(180,155,100,0.2);
+  color: #8b6914; letter-spacing: 0.5px;
 }
 
 @media (max-width: 700px) {
@@ -136,7 +137,7 @@ body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e8e4df; ov
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(212,168,83,0.3); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(180,155,100,0.3); border-radius: 2px; }
 </style>
 </head>
 <body>
@@ -497,16 +498,16 @@ const map = L.map('map', {
 
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
   maxZoom: 19
 }).addTo(map);
 
 // Color scale based on sunny days
 function getSunColor(sunny) {
-  if (sunny >= 250) return '#f5c842';
-  if (sunny >= 215) return '#e8a830';
-  if (sunny >= 205) return '#d4913a';
-  return '#b87d45';
+  if (sunny >= 250) return '#c4783e';
+  if (sunny >= 215) return '#b8864a';
+  if (sunny >= 205) return '#8b7355';
+  return '#7a8b6a';
 }
 
 function getMarkerSize(sunny) {
@@ -516,13 +517,13 @@ function getMarkerSize(sunny) {
 function makeStars(n) {
   const full = Math.floor(n);
   const half = n % 1 >= 0.5;
-  return '★'.repeat(full) + (half ? '½' : '') + '<span style="opacity:0.2">' + '★'.repeat(5 - full - (half ? 1 : 0)) + '</span>';
+  return '<span style="color:#b8864a">' + '★'.repeat(full) + (half ? '½' : '') + '</span><span style="opacity:0.2;color:#9e9486">' + '★'.repeat(5 - full - (half ? 1 : 0)) + '</span>';
 }
 
 function barColor(pct) {
-  if (pct >= 70) return '#6ecf8e';
-  if (pct >= 50) return '#d4a853';
-  return '#e8945a';
+  if (pct >= 70) return '#6aab72';
+  if (pct >= 50) return '#b8864a';
+  return '#c47a3e';
 }
 
 function makePopup(c) {
@@ -566,33 +567,33 @@ function makePopup(c) {
         <span class="popup-bar-label">Safety</span>
         <div class="popup-bar-track"><div class="popup-bar-fill" style="width:${c.safety.pct}%;background:${barColor(c.safety.pct)}"></div></div>
       </div>
-      <div style="font-size:11px;color:#6a6560;margin:-2px 0 8px 98px">${c.safety.label}</div>
+      <div style="font-size:11px;color:#9e9486;margin:-2px 0 8px 98px">${c.safety.label}</div>
       <div class="popup-bar-row">
         <span class="popup-bar-label">Transit</span>
-        <div style="font-size:13px;color:#d4a853">${makeStars(c.transit.stars)}</div>
+        <div style="font-size:13px">${makeStars(c.transit.stars)}</div>
       </div>
-      <div style="font-size:11px;color:#6a6560;margin:-2px 0 8px 98px">${c.transit.label}</div>
+      <div style="font-size:11px;color:#9e9486;margin:-2px 0 8px 98px">${c.transit.label}</div>
       <div class="popup-bar-row">
         <span class="popup-bar-label">Architecture</span>
-        <div style="font-size:13px;color:#d4a853">${makeStars(c.architecture.stars)}</div>
+        <div style="font-size:13px">${makeStars(c.architecture.stars)}</div>
       </div>
-      <div style="font-size:11px;color:#6a6560;margin:-2px 0 8px 98px">${c.architecture.label}</div>
+      <div style="font-size:11px;color:#9e9486;margin:-2px 0 8px 98px">${c.architecture.label}</div>
       <div class="popup-section-title">🚂 Getting Out — Transit & Metro Access</div>
       ${(c.transitRoutes || []).map(r => `
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px;">
           <span style="font-size:14px;flex-shrink:0">${r.mode}</span>
-          <span style="color:#e8e4df;font-weight:500">${r.to}</span>
-          <span style="color:#6a6560;margin-left:auto;flex-shrink:0">${r.time}</span>
+          <span style="color:#3d3529;font-weight:500">${r.to}</span>
+          <span style="color:#9e9486;margin-left:auto;flex-shrink:0">${r.time}</span>
         </div>
-        ${r.note ? `<div style="font-size:10px;color:#8a8578;margin:-2px 0 4px 26px">${r.note}</div>` : ''}
+        ${r.note ? `<div style="font-size:10px;color:#7a6e60;margin:-2px 0 4px 26px">${r.note}</div>` : ''}
       `).join('')}
 
       <div class="popup-section-title">✈️ Nearest International Airports</div>
       ${(c.airports || []).map(a => `
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px;">
-          <span style="background:${a.intl ? 'rgba(110,207,142,0.15)' : 'rgba(232,148,90,0.15)'};color:${a.intl ? '#6ecf8e' : '#e8945a'};padding:2px 8px;border-radius:4px;font-weight:600;font-size:11px;flex-shrink:0">${a.code}</span>
-          <span style="color:#e8e4df">${a.name}</span>
-          <span style="color:#6a6560;margin-left:auto;flex-shrink:0">${a.dist}</span>
+          <span style="background:${a.intl ? 'rgba(106,171,114,0.15)' : 'rgba(212,134,74,0.15)'};color:${a.intl ? '#4a8a52' : '#b86b2a'};padding:2px 8px;border-radius:4px;font-weight:600;font-size:11px;flex-shrink:0">${a.code}</span>
+          <span style="color:#3d3529">${a.name}</span>
+          <span style="color:#9e9486;margin-left:auto;flex-shrink:0">${a.dist}</span>
         </div>
       `).join('')}
 
@@ -622,8 +623,8 @@ cities.forEach((c, i) => {
     className: '',
     html: `<div style="
       width:${size}px;height:${size}px;border-radius:50%;
-      background:${color};border:2px solid rgba(255,255,255,0.3);
-      box-shadow:0 0 ${size}px ${color}44, 0 2px 8px rgba(0,0,0,0.5);
+      background:${color};border:2px solid rgba(255,255,255,0.8);
+      box-shadow:0 0 ${size}px ${color}33, 0 2px 8px rgba(100,80,50,0.25);
       display:flex;align-items:center;justify-content:center;
       font-size:${size*0.5}px;cursor:pointer;
       transition:transform 0.2s;
