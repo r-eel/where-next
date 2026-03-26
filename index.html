@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emma & Rob — Where Next?</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e8e4df; overflow: hidden; height: 100vh; }
+
+#map { width: 100%; height: 100vh; z-index: 1; }
+
+.header-overlay {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: linear-gradient(180deg, rgba(10,10,15,0.95) 0%, rgba(10,10,15,0.7) 70%, transparent 100%);
+  padding: 20px 24px 40px; pointer-events: none; text-align: center;
+}
+.header-overlay h1 {
+  font-family: 'Playfair Display', serif; font-weight: 700; font-size: 28px;
+  color: #d4a853; letter-spacing: 2px; margin-bottom: 4px;
+}
+.header-overlay p {
+  font-size: 13px; color: #8a8578; letter-spacing: 1px; font-weight: 300;
+}
+
+.sidebar {
+  position: fixed; top: 90px; left: 16px; z-index: 1000;
+  background: rgba(15,15,22,0.92); backdrop-filter: blur(12px);
+  border: 1px solid rgba(212,168,83,0.2); border-radius: 12px;
+  padding: 16px; width: 240px; max-height: calc(100vh - 120px);
+  overflow-y: auto; pointer-events: auto;
+}
+.sidebar h3 {
+  font-family: 'Playfair Display', serif; font-size: 14px; color: #d4a853;
+  margin-bottom: 12px; letter-spacing: 1px;
+}
+.sidebar-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+  border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-bottom: 4px;
+}
+.sidebar-item:hover { background: rgba(212,168,83,0.1); }
+.sidebar-item.active { background: rgba(212,168,83,0.15); border: 1px solid rgba(212,168,83,0.3); }
+.sidebar-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.sidebar-name { font-size: 13px; font-weight: 500; color: #e8e4df; }
+.sidebar-tag { font-size: 10px; color: #8a8578; display: block; margin-top: 1px; }
+
+.leaflet-popup-content-wrapper {
+  background: rgba(15,15,22,0.96) !important; backdrop-filter: blur(12px);
+  border: 1px solid rgba(212,168,83,0.25) !important; border-radius: 14px !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6) !important; padding: 0 !important;
+}
+.leaflet-popup-tip { background: rgba(15,15,22,0.96) !important; }
+.leaflet-popup-content { margin: 0 !important; width: 340px !important; }
+.leaflet-popup-close-button {
+  color: #8a8578 !important; font-size: 20px !important; top: 8px !important; right: 12px !important;
+}
+
+.popup-inner { padding: 20px; }
+.popup-tag {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+  color: #d4a853; margin-bottom: 6px; font-weight: 600;
+}
+.popup-city {
+  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
+  color: #e8e4df; margin-bottom: 4px;
+}
+.popup-state { font-size: 13px; color: #8a8578; margin-bottom: 14px; }
+
+.popup-vibe {
+  font-size: 13px; line-height: 1.6; color: #b8b0a4; font-style: italic;
+  padding: 12px 14px; background: rgba(212,168,83,0.06); border-left: 2px solid #d4a853;
+  border-radius: 0 8px 8px 0; margin-bottom: 16px;
+}
+
+.popup-photo {
+  width: 100%; height: 140px; object-fit: cover; border-radius: 8px; margin-bottom: 14px;
+  border: 1px solid rgba(212,168,83,0.15);
+}
+
+.popup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.popup-stat {
+  background: rgba(255,255,255,0.03); border-radius: 8px; padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.popup-stat-label { font-size: 10px; color: #6a6560; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+.popup-stat-value { font-size: 15px; font-weight: 600; color: #e8e4df; }
+
+.popup-section-label {
+  font-size: 10px; color: #6a6560; text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 6px; margin-top: 14px;
+}
+.popup-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.popup-bar-label { font-size: 12px; color: #8a8578; width: 90px; flex-shrink: 0; }
+.popup-bar-track {
+  flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden;
+}
+.popup-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+.popup-note {
+  font-size: 12px; color: #a09888; margin-top: 14px; padding: 10px 12px;
+  background: rgba(255,255,255,0.02); border-radius: 8px; line-height: 1.5;
+}
+.popup-note.warning { border-left: 2px solid #e8945a; }
+.popup-note.highlight { border-left: 2px solid #6ecf8e; }
+
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  .header-overlay h1 { font-size: 20px; }
+  .leaflet-popup-content { width: 290px !important; }
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(212,168,83,0.3); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div class="header-overlay">
+  <h1>Emma &amp; Rob — Where Next?</h1>
+  <p>9 cities · all the data · one big decision</p>
+</div>
+
+<div class="sidebar" id="sidebar">
+  <h3>Your Cities</h3>
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const cities = [
+  {
+    name: "San Diego", state: "California", tag: "The Dream", emoji: "☀️",
+    lat: 32.7157, lng: -117.1611, sunny: 266, winter: 57, home: "$990K",
+    photo: "https://images.unsplash.com/photo-1538097304804-2a1b932c284e?w=600&h=300&fit=crop",
+    vibe: "Eternal golden hour. Surfers at sunrise, fish tacos at sunset, jacaranda trees lining every street in purple. The air smells like salt and sunscreen year-round. People jog in January wearing shorts. It almost feels unfair.",
+    water: "Pacific Ocean — 70 miles of beaches",
+    safety: { score: 350, label: "🟡 Average for a big city", pct: 55 },
+    transit: { stars: 4, label: "Trolley + bus + Coaster commuter rail" },
+    architecture: { stars: 4, label: "Spanish Colonial, mid-century modern, Gaslamp Victorian" },
+    airport: "SAN (international)",
+    homeVal: 990, note: null
+  },
+  {
+    name: "Charleston", state: "South Carolina", tag: "The Beauty", emoji: "🌺",
+    lat: 32.7765, lng: -79.9311, sunny: 220, winter: 48, home: "$475K",
+    photo: "https://images.unsplash.com/photo-1569839333583-5e8a0863a273?w=600&h=300&fit=crop",
+    vibe: "Pastel row houses, wrought iron gates, church steeples breaking the skyline. Horse-drawn carriages on cobblestone. Sweet tea on the porch while Spanish moss sways overhead. Every block is a painting. The humidity is the price of admission — and it's worth it.",
+    water: "Atlantic coast + harbor, Sullivan's Island & Folly Beach",
+    safety: { score: 350, label: "🟡 Average", pct: 55 },
+    transit: { stars: 2, label: "Bus + walkable downtown, mostly car-dependent" },
+    architecture: { stars: 5, label: "Rainbow Row, antebellum mansions, cobblestone, steeples" },
+    airport: "CHS (international)",
+    homeVal: 475, note: "⚠️ SC politics — the city itself is progressive, but the state is solidly red. Something to weigh honestly."
+  },
+  {
+    name: "Victoria", state: "British Columbia", tag: "The Canada Pick", emoji: "🍁",
+    lat: 48.4284, lng: -123.3656, sunny: 217, winter: 40, home: "$620K",
+    photo: "https://images.unsplash.com/photo-1559511260-66a654ae982a?w=600&h=300&fit=crop",
+    vibe: "Tea rooms and totem poles. The Inner Harbour at dusk with the Parliament lit up like a fairy tale. Orcas in the strait, float planes landing on the water, hanging flower baskets on every lamp post. It's the most British place in North America and somehow that works. Cozy, civilized, quietly stunning.",
+    water: "Pacific / Salish Sea — waterfront everywhere",
+    safety: { score: 100, label: "🟢 Very safe (Canada advantage)", pct: 90 },
+    transit: { stars: 3, label: "Bus + very walkable/bikeable + ferry to Vancouver" },
+    architecture: { stars: 4, label: "Parliament, Empress Hotel, British colonial, Craigdarroch Castle" },
+    airport: "YYJ (international)",
+    homeVal: 620, note: null
+  },
+  {
+    name: "Savannah", state: "Georgia", tag: "Emma's City 💛", emoji: "🌿",
+    lat: 32.0809, lng: -81.0912, sunny: 216, winter: 50, home: "$320K",
+    photo: "https://images.unsplash.com/photo-1588696027587-04da88df0332?w=600&h=300&fit=crop",
+    vibe: "Spanish moss dripping like curtains over 22 perfect squares. Forsyth Park fountain at golden hour. The smell of pralines from River Street. Midnight in the Garden of Good and Evil energy — beautiful, a little haunted, completely intoxicating. You already know this city's heartbeat. It knows yours too.",
+    water: "Savannah River + Tybee Island beach 20 min away",
+    safety: { score: 350, label: "🟡 Average — varies by neighborhood", pct: 55 },
+    transit: { stars: 2, label: "Bus + most walkable historic district in America" },
+    architecture: { stars: 5, label: "22 squares, Italianate mansions, Gothic Revival, Forsyth Park" },
+    airport: "SAV (international)",
+    homeVal: 320, note: "💛 Emma went to SCAD here — you have roots, friends, and real knowledge of this city. That's a huge advantage."
+  },
+  {
+    name: "Raleigh-Durham", state: "North Carolina", tag: "The Practical Pick", emoji: "📐",
+    lat: 35.7796, lng: -78.6382, sunny: 213, winter: 40, home: "$425K",
+    photo: "https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=600&h=300&fit=crop",
+    vibe: "College town energy that grew up. Duke's Gothic campus through morning fog. Research Triangle startups next to BBQ joints that haven't changed in 40 years. New breweries on every corner. Young, smart, growing fast — the kind of place that's building its identity right now. You'd be getting in early.",
+    water: "Jordan Lake, Falls Lake (30 min), coast 2.5 hrs",
+    safety: { score: 370, label: "🟡 Raleigh is safe, Durham pulls the avg up", pct: 50 },
+    transit: { stars: 2, label: "Bus only — rail has been planned for years, keeps stalling" },
+    architecture: { stars: 2.5, label: "Duke Chapel (stunning), NC Capitol, historic Oakwood" },
+    airport: "RDU (international)",
+    homeVal: 425, note: null
+  },
+  {
+    name: "Annapolis", state: "Maryland", tag: "The Complete Package", emoji: "⚓",
+    lat: 38.9784, lng: -76.4922, sunny: 205, winter: 37, home: "$475K",
+    photo: "https://images.unsplash.com/photo-1570382667048-23b581258966?w=600&h=300&fit=crop",
+    vibe: "Sailboats rocking at City Dock. Brick sidewalks worn smooth by 300 years of footsteps. Midshipmen in white uniforms crossing the yard. Crabs on newspaper with Old Bay and cold beer while the sun sets over the Chesapeake. Colonial America that never stopped breathing. Small town heart, capital city bones.",
+    water: "Chesapeake Bay + Severn River — the Sailing Capital of the US",
+    safety: { score: 250, label: "🟢 Safe, especially the historic district", pct: 70 },
+    transit: { stars: 3, label: "MARC train to DC/Baltimore, BWI 20 min, DCA 40 min" },
+    architecture: { stars: 5, label: "Most 18th-century buildings in the US. Naval Academy. Georgian mansions. Gas lamps." },
+    airport: "BWI 20 min + DCA 40 min (two international airports!)",
+    homeVal: 475, note: "✨ Basically Evanston on the Chesapeake — own identity, 30 min from a world capital, water everywhere."
+  },
+  {
+    name: "Wilmington", state: "Delaware", tag: "The Sleeper Pick 👀", emoji: "🚂",
+    lat: 39.7391, lng: -75.5398, sunny: 202, winter: 34, home: "$280K",
+    photo: "https://images.unsplash.com/photo-1555424681-b0ecf4fe19a5?w=600&h=300&fit=crop",
+    vibe: "Nobody's first thought. Everyone's second look. The Brandywine Valley in autumn — du Pont estates glowing gold through the trees. Longwood Gardens in bloom. A quiet Amtrak platform and then suddenly you're in Manhattan. No sales tax. Real value. The kind of place that rewards people who actually do the research.",
+    water: "Delaware River + beaches 45 min",
+    safety: { score: 450, label: "🟠 Mixed — suburbs (Greenville, Hockessin) are very safe", pct: 40 },
+    transit: { stars: 4, label: "Amtrak NE Corridor! NYC 1.5h, DC 1.5h, Philly 20 min" },
+    architecture: { stars: 3, label: "Brandywine mansions, du Pont estates, Winterthur, Longwood Gardens" },
+    airport: "PHL 25 min (major international hub)",
+    homeVal: 280, note: "🏠 7 Emma Drive exists here. Born on the 7th. No sales tax. The universe is not being subtle."
+  },
+  {
+    name: "Hudson Valley", state: "New York", tag: "Train to Rob's Old City", emoji: "🚃",
+    lat: 41.5, lng: -73.9, sunny: 200, winter: 32, home: "$400K",
+    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=300&fit=crop",
+    vibe: "Stone walls along country roads. A converted factory housing world-class art. Farm-to-table dinners where the farmer is at the next table. The Hudson River wide and silver in morning light. Then you get on a train and 90 minutes later you're standing in Grand Central. Country soul, city heartbeat. Brooklyn emigrés who brought the good taste and left the rent behind.",
+    water: "Hudson River",
+    safety: { score: 180, label: "🟢 Very safe", pct: 80 },
+    transit: { stars: 3, label: "Metro North / Amtrak to NYC 1.5-2 hrs" },
+    architecture: { stars: 4, label: "Dutch stone houses, Gilded Age estates, Dia:Beacon, Roosevelt/Vanderbilt" },
+    airport: "NYC airports 1.5-2 hrs",
+    homeVal: 400, note: "🏙️ Rob lived in NYC — this keeps that connection alive with a train ride, not a flight."
+  },
+  {
+    name: "Asheville", state: "North Carolina", tag: "The Wild Card", emoji: "🎸",
+    lat: 35.5951, lng: -82.5515, sunny: 199, winter: 36, home: "$400K",
+    photo: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=300&fit=crop",
+    vibe: "Blue Ridge mountains fading to purple at dusk. Buskers on Lexington Ave. The Biltmore rising out of the mist like a French château that got lost. Craft beer and craft everything — pottery, leather, glass, wood. Drum circles in the park. The kind of weird that takes itself just seriously enough. Small enough to know your barista. Big enough to never be bored.",
+    water: "French Broad River + mountain lakes",
+    safety: { score: 500, label: "🟠 Higher than expected — property crime + drug issues", pct: 35 },
+    transit: { stars: 1, label: "Minimal bus, fully car-dependent" },
+    architecture: { stars: 4, label: "Biltmore Estate (250 rooms!), Art Deco downtown, Grove Park Inn" },
+    airport: "AVL (limited) — CLT 2 hrs for international",
+    homeVal: 400, note: null
+  }
+];
+
+// Init map
+const map = L.map('map', {
+  center: [37.5, -85],
+  zoom: 5,
+  zoomControl: false,
+  attributionControl: false
+});
+
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  maxZoom: 19
+}).addTo(map);
+
+// Color scale based on sunny days
+function getSunColor(sunny) {
+  if (sunny >= 250) return '#f5c842';
+  if (sunny >= 215) return '#e8a830';
+  if (sunny >= 205) return '#d4913a';
+  return '#b87d45';
+}
+
+function getMarkerSize(sunny) {
+  return Math.max(12, Math.min(22, (sunny - 170) * 0.12 + 12));
+}
+
+function makeStars(n) {
+  const full = Math.floor(n);
+  const half = n % 1 >= 0.5;
+  return '★'.repeat(full) + (half ? '½' : '') + '<span style="opacity:0.2">' + '★'.repeat(5 - full - (half ? 1 : 0)) + '</span>';
+}
+
+function barColor(pct) {
+  if (pct >= 70) return '#6ecf8e';
+  if (pct >= 50) return '#d4a853';
+  return '#e8945a';
+}
+
+function makePopup(c) {
+  let noteHtml = '';
+  if (c.note) {
+    const cls = c.note.startsWith('⚠️') ? 'warning' : 'highlight';
+    noteHtml = `<div class="popup-note ${cls}">${c.note}</div>`;
+  }
+
+  return `
+    <div class="popup-inner">
+      <div class="popup-tag">${c.tag}</div>
+      <div class="popup-city">${c.name}</div>
+      <div class="popup-state">${c.state}</div>
+      <img class="popup-photo" src="${c.photo}" alt="${c.name}" onerror="this.style.display='none'" />
+      <div class="popup-vibe">${c.vibe}</div>
+      <div class="popup-grid">
+        <div class="popup-stat">
+          <div class="popup-stat-label">☀️ Sunny Days</div>
+          <div class="popup-stat-value">${c.sunny}/yr</div>
+        </div>
+        <div class="popup-stat">
+          <div class="popup-stat-label">🌡️ Winter</div>
+          <div class="popup-stat-value">${c.winter}°F avg</div>
+        </div>
+        <div class="popup-stat">
+          <div class="popup-stat-label">🏠 Median Home</div>
+          <div class="popup-stat-value">${c.home}</div>
+        </div>
+        <div class="popup-stat">
+          <div class="popup-stat-label">✈️ Airport</div>
+          <div class="popup-stat-value" style="font-size:11px">${c.airport}</div>
+        </div>
+      </div>
+      <div class="popup-stat" style="margin-bottom:14px">
+        <div class="popup-stat-label">🌊 Water</div>
+        <div class="popup-stat-value" style="font-size:13px;font-weight:400">${c.water}</div>
+      </div>
+      <div class="popup-section-label">Ratings</div>
+      <div class="popup-bar-row">
+        <span class="popup-bar-label">Safety</span>
+        <div class="popup-bar-track"><div class="popup-bar-fill" style="width:${c.safety.pct}%;background:${barColor(c.safety.pct)}"></div></div>
+      </div>
+      <div style="font-size:11px;color:#6a6560;margin:-2px 0 8px 98px">${c.safety.label}</div>
+      <div class="popup-bar-row">
+        <span class="popup-bar-label">Transit</span>
+        <div style="font-size:13px;color:#d4a853">${makeStars(c.transit.stars)}</div>
+      </div>
+      <div style="font-size:11px;color:#6a6560;margin:-2px 0 8px 98px">${c.transit.label}</div>
+      <div class="popup-bar-row">
+        <span class="popup-bar-label">Architecture</span>
+        <div style="font-size:13px;color:#d4a853">${makeStars(c.architecture.stars)}</div>
+      </div>
+      <div style="font-size:11px;color:#6a6560;margin:-2px 0 8px 98px">${c.architecture.label}</div>
+      ${noteHtml}
+    </div>
+  `;
+}
+
+// Add markers
+const markers = [];
+cities.forEach((c, i) => {
+  const size = getMarkerSize(c.sunny);
+  const color = getSunColor(c.sunny);
+  const icon = L.divIcon({
+    className: '',
+    html: `<div style="
+      width:${size}px;height:${size}px;border-radius:50%;
+      background:${color};border:2px solid rgba(255,255,255,0.3);
+      box-shadow:0 0 ${size}px ${color}44, 0 2px 8px rgba(0,0,0,0.5);
+      display:flex;align-items:center;justify-content:center;
+      font-size:${size*0.5}px;cursor:pointer;
+      transition:transform 0.2s;
+    " onmouseenter="this.style.transform='scale(1.3)'" onmouseleave="this.style.transform='scale(1)'">${c.emoji}</div>`,
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2]
+  });
+
+  const marker = L.marker([c.lat, c.lng], { icon }).addTo(map);
+  marker.bindPopup(makePopup(c), { maxWidth: 360, maxHeight: 500 });
+  markers.push(marker);
+
+  // Sidebar
+  const item = document.createElement('div');
+  item.className = 'sidebar-item';
+  item.innerHTML = `
+    <div class="sidebar-dot" style="background:${color}"></div>
+    <div>
+      <span class="sidebar-name">${c.emoji} ${c.name}</span>
+      <span class="sidebar-tag">${c.tag} · ${c.sunny}☀️ · ${c.home}</span>
+    </div>
+  `;
+  item.onclick = () => {
+    map.flyTo([c.lat, c.lng], 10, { duration: 1.2 });
+    setTimeout(() => marker.openPopup(), 600);
+    document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+    item.classList.add('active');
+  };
+  document.getElementById('sidebar').appendChild(item);
+});
+</script>
+</body>
+</html>
