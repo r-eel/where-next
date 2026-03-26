@@ -166,6 +166,14 @@ const cities = [
     architecture: { stars: 4, label: "Spanish Colonial, mid-century modern, Gaslamp Victorian" },
     airport: "SAN (international)",
     homeVal: 990, note: null,
+    transitRoutes: [
+      { to: "Los Angeles", mode: "🚗", time: "2 hrs (I-5)", note: "Traffic can double it" },
+      { to: "Tijuana/Mexico", mode: "🚊", time: "45 min (Blue Line trolley to border)" }
+    ],
+    airports: [
+      { code: "SAN", name: "San Diego Intl", dist: "Downtown", intl: true },
+      { code: "LAX", name: "Los Angeles Intl", dist: "2 hrs north", intl: true }
+    ],
     houseStyles: ["Spanish Colonial Revival", "Mid-Century Modern", "Craftsman Bungalow", "Mediterranean Villa", "Beach Contemporary"],
     neighborhoods: [
       { name: "North Park", desc: "Walkable, artsy, Craftsman bungalows with character. Great restaurants, bars, coffee shops on every corner. The 'Brooklyn of San Diego.'", price: "$900K–$1.2M" },
@@ -186,6 +194,14 @@ const cities = [
     architecture: { stars: 5, label: "Rainbow Row, antebellum mansions, cobblestone, steeples" },
     airport: "CHS (international)",
     homeVal: 475, note: "⚠️ SC politics — the city itself is progressive, but the state is solidly red. Something to weigh honestly.",
+    transitRoutes: [
+      { to: "Savannah", mode: "🚗", time: "2 hrs (I-95 south)" },
+      { to: "Charlotte", mode: "🚗", time: "3.5 hrs (I-26)" },
+      { to: "Hilton Head", mode: "🚗", time: "2 hrs" }
+    ],
+    airports: [
+      { code: "CHS", name: "Charleston Intl", dist: "12 miles from downtown", intl: true }
+    ],
     houseStyles: ["Antebellum Mansion", "Charleston Single House", "Greek Revival", "Federal", "Lowcountry Cottage", "Victorian"],
     neighborhoods: [
       { name: "South of Broad", desc: "THE iconic Charleston neighborhood. Rainbow Row, cobblestone, Battery promenade. Pastel mansions behind wrought iron gates. Pure magic.", price: "$1.5M–$5M+" },
@@ -206,6 +222,15 @@ const cities = [
     architecture: { stars: 4, label: "Parliament, Empress Hotel, British colonial, Craigdarroch Castle" },
     airport: "YYJ (international)",
     homeVal: 620, note: null,
+    transitRoutes: [
+      { to: "Vancouver", mode: "⛴️", time: "3.5 hrs (BC Ferries + drive)" },
+      { to: "Seattle", mode: "⛴️", time: "3 hrs (Clipper ferry — seasonal)" },
+      { to: "Nanaimo", mode: "⛴️", time: "2 hrs" }
+    ],
+    airports: [
+      { code: "YYJ", name: "Victoria Intl", dist: "25 min from downtown", intl: true },
+      { code: "YVR", name: "Vancouver Intl", dist: "3.5 hrs (ferry + drive)", intl: true }
+    ],
     houseStyles: ["Victorian", "Edwardian", "British Colonial", "Tudor Revival", "West Coast Modern", "Heritage Cottage"],
     neighborhoods: [
       { name: "James Bay", desc: "Walking distance to Inner Harbour and Parliament. Quiet residential streets with heritage character homes. Fisherman's Wharf nearby.", price: "$750K–$1.2M CAD" },
@@ -226,6 +251,16 @@ const cities = [
     architecture: { stars: 5, label: "22 squares, Italianate mansions, Gothic Revival, Forsyth Park" },
     airport: "SAV (international)",
     homeVal: 320, note: "💛 Emma went to SCAD here — you have roots, friends, and real knowledge of this city. That's a huge advantage.",
+    transitRoutes: [
+      { to: "Charleston", mode: "🚗", time: "2 hrs (I-95 north)" },
+      { to: "Jacksonville", mode: "🚗", time: "2 hrs (I-95 south)" },
+      { to: "Atlanta", mode: "🚗", time: "3.5 hrs (I-16)" },
+      { to: "Tybee Island Beach", mode: "🚗", time: "20 min" }
+    ],
+    airports: [
+      { code: "SAV", name: "Savannah/Hilton Head Intl", dist: "15 min from downtown", intl: true },
+      { code: "JAX", name: "Jacksonville Intl", dist: "2 hrs south", intl: true }
+    ],
     houseStyles: ["Italianate", "Greek Revival", "Georgian", "Victorian", "Gothic Revival", "Lowcountry Cottage"],
     neighborhoods: [
       { name: "Historic District (Downtown)", desc: "The 22 squares. Forsyth Park. Row houses dripping with history. Walking to everything — restaurants, galleries, River Street. This IS Savannah.", price: "$450K–$1.2M" },
@@ -246,6 +281,15 @@ const cities = [
     architecture: { stars: 2.5, label: "Duke Chapel (stunning), NC Capitol, historic Oakwood" },
     airport: "RDU (international)",
     homeVal: 425, note: null,
+    transitRoutes: [
+      { to: "Charlotte", mode: "🚗", time: "2.5 hrs (I-85)" },
+      { to: "Virginia Beach", mode: "🚗", time: "3 hrs" },
+      { to: "DC", mode: "🚗", time: "4.5 hrs (I-85/I-95)" },
+      { to: "Wilmington NC (beach)", mode: "🚗", time: "2.5 hrs (I-40)" }
+    ],
+    airports: [
+      { code: "RDU", name: "Raleigh-Durham Intl", dist: "15 min from either city", intl: true }
+    ],
     houseStyles: ["Colonial Revival", "Modern Farmhouse", "Ranch", "New Traditional", "Contemporary"],
     neighborhoods: [
       { name: "Downtown Durham (American Tobacco)", desc: "Converted warehouses, walkable, great food scene. Durham Bulls ballpark. Young, creative, startup energy.", price: "$400K–$700K" },
@@ -266,6 +310,17 @@ const cities = [
     architecture: { stars: 5, label: "Most 18th-century buildings in the US. Naval Academy. Georgian mansions. Gas lamps." },
     airport: "BWI 20 min + DCA 40 min (two international airports!)",
     homeVal: 475, note: "✨ Basically Evanston on the Chesapeake — own identity, 30 min from a world capital, water everywhere.",
+    transitRoutes: [
+      { to: "Washington DC", mode: "🚗", time: "30-45 min" },
+      { to: "Baltimore", mode: "🚗🚂", time: "30 min (drive or MARC train)" },
+      { to: "Philadelphia", mode: "🚗", time: "2 hrs (I-95)" },
+      { to: "NYC", mode: "🚂", time: "3.5 hrs (Amtrak from BWI)" }
+    ],
+    airports: [
+      { code: "BWI", name: "Baltimore/Washington Intl", dist: "20 min", intl: true },
+      { code: "DCA", name: "Reagan National", dist: "40 min", intl: true },
+      { code: "IAD", name: "Dulles Intl", dist: "1 hr", intl: true }
+    ],
     houseStyles: ["Georgian", "Federal", "Colonial", "Victorian", "Cape Cod", "Waterfront Contemporary"],
     neighborhoods: [
       { name: "Historic Downtown", desc: "Brick row houses, cobblestone, City Dock. 300 years of architecture on every block. Walk to everything — restaurants, Naval Academy, waterfront. The heart.", price: "$600K–$1.5M" },
@@ -286,6 +341,17 @@ const cities = [
     architecture: { stars: 3, label: "Brandywine mansions, du Pont estates, Winterthur, Longwood Gardens" },
     airport: "PHL 25 min (major international hub)",
     homeVal: 280, note: "🏠 7 Emma Drive exists here. Born on the 7th. No sales tax. The universe is not being subtle.",
+    transitRoutes: [
+      { to: "Philadelphia", mode: "🚂", time: "20 min (Amtrak)" },
+      { to: "New York City", mode: "🚂", time: "1.5 hrs (Amtrak NE Corridor)" },
+      { to: "Washington DC", mode: "🚂", time: "1.5 hrs (Amtrak NE Corridor)" },
+      { to: "Baltimore", mode: "🚂", time: "1 hr (Amtrak)" },
+      { to: "Delaware Beaches", mode: "🚗", time: "45 min–1 hr" }
+    ],
+    airports: [
+      { code: "PHL", name: "Philadelphia Intl", dist: "25 min", intl: true },
+      { code: "EWR", name: "Newark Liberty Intl", dist: "1.5 hrs", intl: true }
+    ],
     houseStyles: ["Stone Colonial", "du Pont Estate", "Federal", "Victorian", "Brandywine Valley Manor", "Contemporary"],
     neighborhoods: [
       { name: "Greenville", desc: "THE premier neighborhood. Rolling hills, stone walls, estate homes, du Pont legacy. Winterthur and Longwood Gardens are your neighbors. Old money, old trees.", price: "$800K–$2M+" },
@@ -306,6 +372,16 @@ const cities = [
     architecture: { stars: 4, label: "Dutch stone houses, Gilded Age estates, Dia:Beacon, Roosevelt/Vanderbilt" },
     airport: "NYC airports 1.5-2 hrs",
     homeVal: 400, note: "🏙️ Rob lived in NYC — this keeps that connection alive with a train ride, not a flight.",
+    transitRoutes: [
+      { to: "New York City (Grand Central)", mode: "🚂", time: "1.5–2 hrs (Metro North)" },
+      { to: "Albany", mode: "🚂🚗", time: "1–1.5 hrs" },
+      { to: "New Haven / CT", mode: "🚂", time: "2 hrs (via NYC transfer)" }
+    ],
+    airports: [
+      { code: "SWF", name: "Stewart Intl (Newburgh)", dist: "20-40 min", intl: false },
+      { code: "JFK", name: "JFK Intl", dist: "2 hrs (or train to NYC + AirTrain)", intl: true },
+      { code: "EWR", name: "Newark Liberty Intl", dist: "1.5-2 hrs", intl: true }
+    ],
     houseStyles: ["Dutch Stone Colonial", "Gilded Age Estate", "Greek Revival", "Victorian Farmhouse", "Arts & Crafts", "Converted Barn/Mill"],
     neighborhoods: [
       { name: "Beacon", desc: "Dia:Beacon (world-class art in a massive converted factory). Main Street is thriving — restaurants, galleries, vintage shops. Train to NYC. THE Hudson Valley town.", price: "$450K–$800K" },
@@ -326,6 +402,17 @@ const cities = [
     architecture: { stars: 4, label: "Biltmore Estate (250 rooms!), Art Deco downtown, Grove Park Inn" },
     airport: "AVL (limited) — CLT 2 hrs for international",
     homeVal: 400, note: null,
+    transitRoutes: [
+      { to: "Charlotte", mode: "🚗", time: "2 hrs (I-26/I-40)" },
+      { to: "Knoxville", mode: "🚗", time: "1 hr 15 min" },
+      { to: "Greenville SC", mode: "🚗", time: "1 hr" },
+      { to: "Atlanta", mode: "🚗", time: "3.5 hrs" }
+    ],
+    airports: [
+      { code: "AVL", name: "Asheville Regional", dist: "15 min", intl: false },
+      { code: "CLT", name: "Charlotte Douglas Intl", dist: "2 hrs", intl: true },
+      { code: "GSP", name: "Greenville-Spartanburg Intl", dist: "1 hr", intl: true }
+    ],
     houseStyles: ["Arts & Crafts", "Art Deco", "Log Cabin Luxe", "Mountain Contemporary", "Victorian", "Château (Biltmore vibes)"],
     neighborhoods: [
       { name: "Montford", desc: "Walking distance to downtown. Grand Victorians and Arts & Crafts homes on tree-lined streets. Historic district with real character. The 'it' neighborhood.", price: "$500K–$900K" },
@@ -427,6 +514,25 @@ function makePopup(c) {
         <div style="font-size:13px;color:#d4a853">${makeStars(c.architecture.stars)}</div>
       </div>
       <div style="font-size:11px;color:#6a6560;margin:-2px 0 8px 98px">${c.architecture.label}</div>
+      <div class="popup-section-title">🚂 Getting Out — Transit & Metro Access</div>
+      ${(c.transitRoutes || []).map(r => `
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px;">
+          <span style="font-size:14px;flex-shrink:0">${r.mode}</span>
+          <span style="color:#e8e4df;font-weight:500">${r.to}</span>
+          <span style="color:#6a6560;margin-left:auto;flex-shrink:0">${r.time}</span>
+        </div>
+        ${r.note ? `<div style="font-size:10px;color:#8a8578;margin:-2px 0 4px 26px">${r.note}</div>` : ''}
+      `).join('')}
+
+      <div class="popup-section-title">✈️ Nearest International Airports</div>
+      ${(c.airports || []).map(a => `
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px;">
+          <span style="background:${a.intl ? 'rgba(110,207,142,0.15)' : 'rgba(232,148,90,0.15)'};color:${a.intl ? '#6ecf8e' : '#e8945a'};padding:2px 8px;border-radius:4px;font-weight:600;font-size:11px;flex-shrink:0">${a.code}</span>
+          <span style="color:#e8e4df">${a.name}</span>
+          <span style="color:#6a6560;margin-left:auto;flex-shrink:0">${a.dist}</span>
+        </div>
+      `).join('')}
+
       <div class="popup-section-title">🏡 House Architecture You'll See</div>
       <div class="house-styles">
         ${(c.houseStyles || []).map(s => `<span class="house-style-tag">${s}</span>`).join('')}
