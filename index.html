@@ -584,16 +584,7 @@ function makePopup(c) {
       <div class="popup-tag">${c.tag}</div>
       <div class="popup-city">${c.name}</div>
       <div class="popup-state">${c.state}</div>
-      ${c.collage && c.collage.length > 0 ? `
-        <div class="photo-collage four">
-          ${c.collage.map(p => `
-            <div class="photo-cell">
-              <img src="${p.url}" alt="${p.label}" onerror="this.parentElement.style.display='none'" />
-              <div class="photo-label">${p.label}</div>
-            </div>
-          `).join('')}
-        </div>
-      ` : `<img class="popup-photo" src="${c.photo}" alt="${c.name}" onerror="this.style.display='none'" />`}
+      <img class="popup-photo" src="${c.photo}" alt="${c.name}" onerror="this.style.display='none'" />
       <div class="popup-vibe">${c.vibe}</div>
       <div class="popup-grid">
         <div class="popup-stat">
