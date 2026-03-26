@@ -361,6 +361,129 @@ const cities = [
       { name: "Hudson", desc: "Former whaling town turned art/antique mecca. Warren Street is one of the best main streets in America. Restaurants that rival Brooklyn. Amtrak stop.", price: "$350K–$700K" },
       { name: "Kingston", desc: "First capital of New York State. Stockade District has 300-year-old stone houses. Rondout waterfront. Most affordable of the HV towns. Growing fast.", price: "$300K–$550K" }
     ]
+  },
+  {
+    name: "Alexandria", state: "Virginia", tag: "Annapolis with a Subway", emoji: "🏛️",
+    lat: 38.8048, lng: -77.0469, sunny: 210, winter: 36, home: "$650K",
+    photo: "https://images.unsplash.com/photo-1617581629397-a72507c3f890?w=600&h=300&fit=crop",
+    vibe: "Cobblestone streets where the Founding Fathers actually walked. Brick row houses with window boxes overflowing with flowers. The Potomac glinting at the end of every east-west street. Waterfront restaurants where you watch boats drift by. Then you walk underground and 15 minutes later you're standing in the shadow of the Capitol. History that lives and breathes, with a Metro card in its pocket.",
+    water: "Potomac River — waterfront boardwalk, kayaking, river views",
+    safety: { score: 150, label: "🟢 Very safe", pct: 85 },
+    transit: { stars: 5, label: "DC Metro (Blue/Yellow lines)! Best transit on the entire list" },
+    architecture: { stars: 5, label: "Colonial row houses, Georgian mansions, Federal style, Carlyle House, Christ Church (1773)" },
+    airport: "DCA 10 min (!), Dulles 45 min, BWI 1 hr",
+    homeVal: 650, note: "🚇 Only city on this list with actual subway access. 15 min to DC. George Washington's hometown. That's not a metaphor — his townhouse was on Cameron Street.",
+    transitRoutes: [
+      { to: "Washington DC", mode: "🚇", time: "15 min (Metro Blue/Yellow)" },
+      { to: "Baltimore", mode: "🚗🚂", time: "1 hr" },
+      { to: "Philadelphia", mode: "🚂", time: "2 hrs (Amtrak from Union Station)" },
+      { to: "NYC", mode: "🚂", time: "3.5 hrs (Amtrak from Union Station)" }
+    ],
+    airports: [
+      { code: "DCA", name: "Reagan National", dist: "10 min (!!)", intl: true },
+      { code: "IAD", name: "Dulles Intl", dist: "45 min", intl: true },
+      { code: "BWI", name: "Baltimore/Washington Intl", dist: "1 hr", intl: true }
+    ],
+    houseStyles: ["Federal", "Georgian", "Colonial Revival", "Victorian Row House", "Brick Townhouse", "Greek Revival"],
+    neighborhoods: [
+      { name: "Old Town", desc: "THE neighborhood. King Street from Metro to waterfront — cobblestone, boutiques, restaurants, colonial architecture every direction. This is why people move here.", price: "$800K–$2M+" },
+      { name: "Del Ray", desc: "The 'it' neighborhood. Mount Vernon Ave has ice cream shops, brunch spots, a bookstore with a cat. Bungalows and Cape Cods. Young families everywhere.", price: "$700K–$1.1M" },
+      { name: "Rosemont", desc: "Quiet, tree-lined, walking distance to Old Town and Metro. 1920s-40s colonials and Cape Cods. The grown-up choice.", price: "$800K–$1.2M" },
+      { name: "Carlyle / Eisenhower", desc: "Newer development near Patent Office. Modern condos and townhomes. More affordable entry point with Metro access.", price: "$400K–$700K" },
+      { name: "Belle Haven", desc: "Leafy, affluent, waterfront. George Washington's Mount Vernon is down the road. Colonials and estates on big lots.", price: "$1M–$2.5M" }
+    ]
+  },
+  {
+    name: "Santa Barbara", state: "California", tag: "The Premium Pick 🍷", emoji: "🌅",
+    lat: 34.4208, lng: -119.6982, sunny: 283, winter: 54, home: "$1.5M",
+    photo: "https://images.unsplash.com/photo-1527164012552-f7e5e5e5e5f5?w=600&h=300&fit=crop",
+    vibe: "Red tile roofs cascading down to the Pacific. Bougainvillea climbing white stucco walls. The courthouse — a literal Spanish castle you can get married in — has a clock tower with views that make you forget what stress feels like. Wine country is 30 minutes away. The ocean is 5. Every restaurant has a patio. Every sunset is showing off.",
+    water: "Pacific Ocean — Butterfly Beach, Leadbetter, East Beach. Harbor with sailboats.",
+    safety: { score: 280, label: "🟢 Safe", pct: 70 },
+    transit: { stars: 2, label: "Bus + Amtrak Pacific Surfliner (coastal train to LA/SD!)" },
+    architecture: { stars: 5, label: "Spanish Colonial Revival EVERYWHERE. Red tile, white stucco, arches. Courthouse is a masterpiece. Mission Santa Barbara." },
+    airport: "SBA (regional — some direct flights), LAX 1.5 hrs",
+    homeVal: 1500, note: "💎 The most expensive on the list but arguably the most beautiful. 283 sunny days. If California is the dream, this is the penthouse suite.",
+    transitRoutes: [
+      { to: "Los Angeles", mode: "🚂🚗", time: "1.5 hrs (Amtrak Surfliner or 101)" },
+      { to: "San Diego", mode: "🚂", time: "5 hrs (Amtrak Surfliner — scenic)" },
+      { to: "Santa Ynez Wine Country", mode: "🚗", time: "30 min" },
+      { to: "San Luis Obispo", mode: "🚗", time: "1.5 hrs (101)" }
+    ],
+    airports: [
+      { code: "SBA", name: "Santa Barbara Municipal", dist: "10 min", intl: false },
+      { code: "LAX", name: "Los Angeles Intl", dist: "1.5 hrs", intl: true }
+    ],
+    houseStyles: ["Spanish Colonial Revival", "Mediterranean Villa", "Mission Style", "Montecito Estate", "California Ranch", "Beach Cottage"],
+    neighborhoods: [
+      { name: "Montecito", desc: "Oprah lives here. Harry and Meghan live here. Estates behind gates, ocean views through eucalyptus groves. The most exclusive zip code in California.", price: "$3M–$20M+" },
+      { name: "The Riviera", desc: "Hillside homes with panoramic ocean views. Mediterranean villas, red tile roofs, lush gardens. Upper Riviera has the best views in town.", price: "$1.5M–$4M" },
+      { name: "The Mesa", desc: "Surfer/artsy vibe. Near Lighthouse and Shoreline Park. More affordable than Riviera, still gorgeous. Mix of cottages and newer builds.", price: "$1.2M–$2M" },
+      { name: "Downtown / West Beach", desc: "Walk to State Street, the harbor, Stearns Wharf. Spanish architecture everywhere. Condos and small homes. Urban SB living.", price: "$800K–$1.5M" },
+      { name: "Goleta", desc: "Next door — UCSB is here. More affordable, family-friendly, newer builds. Still has beach access and the SB vibe.", price: "$900K–$1.3M" }
+    ]
+  },
+  {
+    name: "San Luis Obispo", state: "California", tag: "The Happy Place 😊", emoji: "🌻",
+    lat: 35.2828, lng: -120.6596, sunny: 275, winter: 45, home: "$850K",
+    photo: "https://images.unsplash.com/photo-1598301257982-0cf014dabbcd?w=600&h=300&fit=crop",
+    vibe: "There's a reason they keep calling it the happiest city in America. Thursday night farmers market shuts down Higuera Street — the whole town shows up with wine and tri-tip. Cal Poly students on bikes. Mission San Luis Obispo in the town center. The Pacific is 15 minutes away but you almost forget because downtown is so good you don't want to leave. Paso Robles wine country is 30 minutes north and it's Napa without the attitude.",
+    water: "Pacific beaches 15 min (Avila Beach, Pismo Beach, Morro Bay)",
+    safety: { score: 200, label: "🟢 Very safe", pct: 80 },
+    transit: { stars: 2, label: "Bus + Amtrak Coast Starlight stop" },
+    architecture: { stars: 3, label: "Mission Revival, downtown has charm. Less grand than SB but authentic." },
+    airport: "SBP (regional), LAX 3 hrs, SFO 3.5 hrs",
+    homeVal: 850, note: "😊 Consistently ranked happiest city in America. Smaller, chiller, cheaper than Santa Barbara but same California magic.",
+    transitRoutes: [
+      { to: "Santa Barbara", mode: "🚗", time: "1.5 hrs (101 south)" },
+      { to: "Los Angeles", mode: "🚗", time: "3 hrs (101)" },
+      { to: "San Francisco", mode: "🚗🚂", time: "3.5 hrs (101 or Amtrak)" },
+      { to: "Paso Robles Wine Country", mode: "🚗", time: "30 min" }
+    ],
+    airports: [
+      { code: "SBP", name: "SLO County Regional", dist: "5 min", intl: false },
+      { code: "LAX", name: "Los Angeles Intl", dist: "3 hrs", intl: true },
+      { code: "SFO", name: "San Francisco Intl", dist: "3.5 hrs", intl: true }
+    ],
+    houseStyles: ["Mission Revival", "California Ranch", "Craftsman Bungalow", "Spanish Cottage", "Modern Farmhouse"],
+    neighborhoods: [
+      { name: "Downtown SLO", desc: "Walk to everything — Mission, Higuera Street, Thursday market. Mix of bungalows and newer builds. The heartbeat of the city.", price: "$800K–$1.2M" },
+      { name: "San Luis Obispo (Cal Poly area)", desc: "Near campus, younger vibe. Affordable rentals, starter homes, townhomes.", price: "$600K–$900K" },
+      { name: "Avila Beach (15 min)", desc: "Actual beach town on the water. Small, sunny (even when SLO is foggy), boardwalk. Vacation-vibe living.", price: "$900K–$1.5M" },
+      { name: "Pismo Beach (15 min south)", desc: "Classic California beach town. Pier, clam chowder, monarch butterflies. More affordable beach option.", price: "$800K–$1.3M" },
+      { name: "Morro Bay (20 min north)", desc: "Morro Rock, fishing village charm, otters in the harbor. Funky, artsy, affordable for the coast.", price: "$700K–$1M" }
+    ]
+  },
+  {
+    name: "Pasadena", state: "California", tag: "California's Evanston 🌹", emoji: "🏡",
+    lat: 34.1478, lng: -118.1445, sunny: 286, winter: 52, home: "$1.1M",
+    photo: "https://images.unsplash.com/photo-1597466599360-3b9775841aec?w=600&h=300&fit=crop",
+    vibe: "Rose Parade floats being built in warehouses. Craftsman bungalows with deep porches and original woodwork. Caltech geniuses at the coffee shop next to JPL rocket scientists. Old Town's Colorado Boulevard for dinner and a movie. The San Gabriel mountains as your daily backdrop. It's the Evanston of LA — its own city with its own identity, 20 minutes from everything, but you never need to leave if you don't want to.",
+    water: "No ocean (LA beaches 30-40 min) — but mountains, Arroyo Seco, Rose Bowl loop",
+    safety: { score: 280, label: "🟢 Safe for LA metro", pct: 70 },
+    transit: { stars: 4, label: "LA Metro Gold Line! Direct train to downtown LA. That's rare in California." },
+    architecture: { stars: 5, label: "Craftsman Bungalow CAPITAL. Gamble House (masterpiece). City Hall. Spanish Colonial. Mid-century. Greene & Greene." },
+    airport: "LAX 45 min, BUR (Burbank) 20 min, ONT (Ontario) 40 min",
+    homeVal: 1100, note: "🌹 The Evanston parallel is real — own city identity, 20 min from the big city, great architecture, walkable downtown. If you love what Evanston is to Chicago, you'll love what Pasadena is to LA.",
+    transitRoutes: [
+      { to: "Downtown Los Angeles", mode: "🚇", time: "20 min (Gold Line Metro)" },
+      { to: "Santa Monica / Beaches", mode: "🚇🚗", time: "40-50 min" },
+      { to: "Burbank (studios, airport)", mode: "🚗", time: "20 min" },
+      { to: "San Diego", mode: "🚗🚂", time: "2 hrs (Amtrak Surfliner)" }
+    ],
+    airports: [
+      { code: "BUR", name: "Hollywood Burbank", dist: "20 min", intl: false },
+      { code: "LAX", name: "Los Angeles Intl", dist: "45 min", intl: true },
+      { code: "ONT", name: "Ontario Intl", dist: "40 min", intl: true }
+    ],
+    houseStyles: ["Craftsman Bungalow", "Spanish Colonial Revival", "Mid-Century Modern", "Mediterranean", "Greene & Greene", "California Ranch"],
+    neighborhoods: [
+      { name: "Bungalow Heaven", desc: "Literally named for its architecture. 800+ Craftsman bungalows in a designated landmark district. Deep porches, original woodwork, neighborhood pride.", price: "$900K–$1.4M" },
+      { name: "Old Town", desc: "Colorado Boulevard — walkable dining, shopping, movies. The social center. Condos and townhomes above, restaurants below.", price: "$600K–$1M (condos)" },
+      { name: "South Pasadena (adjacent)", desc: "Even more charming small-town feel. Mission Street has that indie main-street energy. Great schools. Beloved by families.", price: "$1.1M–$1.8M" },
+      { name: "Linda Vista / Annandale", desc: "Near Rose Bowl, hillside homes with views. Mix of ranch homes and Spanish colonials. Quiet, established, gorgeous.", price: "$1.2M–$2M" },
+      { name: "Altadena (just north)", desc: "Unincorporated, more space, mountain views. Black-owned businesses, creative community. Craftsmans and ranches on bigger lots. More affordable entry.", price: "$800K–$1.2M" }
+    ]
   }
 ];
 
