@@ -161,7 +161,7 @@ body { font-family: 'Inter', sans-serif; background: #faf7f2; color: #3d3529; ov
 
 <div class="header-overlay">
   <h1>Emma &amp; Rob — Where Next?</h1>
-  <p>10 cities · all the data · one big decision</p>
+  <p>11 cities · all the data · one big decision</p>
 </div>
 
 <div class="sidebar" id="sidebar">
@@ -176,6 +176,7 @@ const cities = [
   {
     name: "San Diego", state: "California", tag: "The Dream", emoji: "☀️",
     lat: 32.7157, lng: -117.1611, sunny: 266, winter: 57, home: "$990K",
+    walkScore: 50, walkLabel: "Car-Dependent (but North Park/Hillcrest/Little Italy = 90+)",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/San_Diego_Skyline.jpg/960px-San_Diego_Skyline.jpg",
     collage: [
       { url: "https://images.pexels.com/photos/2113566/pexels-photo-2113566.jpeg?w=400&h=300&fit=crop", label: "Coronado Beach" },
@@ -210,6 +211,7 @@ const cities = [
   {
     name: "Charleston", state: "South Carolina", tag: "The Beauty", emoji: "🌺",
     lat: 32.7765, lng: -79.9311, sunny: 220, winter: 48, home: "$475K",
+    walkScore: 40, walkLabel: "Car-Dependent (downtown peninsula is walkable, rest needs a car)",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Rainbow_Row.jpg/960px-Rainbow_Row.jpg",
     collage: [
       { url: "https://images.pexels.com/photos/6267/menu-restaurant-vintage-table.jpg?w=400&h=300&fit=crop", label: "Southern Dining" },
@@ -244,6 +246,7 @@ const cities = [
   {
     name: "Victoria", state: "British Columbia", tag: "The Canada Pick", emoji: "🍁",
     lat: 48.4284, lng: -123.3656, sunny: 217, winter: 40, home: "$620K",
+    walkScore: 78, walkLabel: "Very Walkable — downtown/James Bay/Fernwood = Walker's Paradise (99)",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/British_Columbia_Parliament_Buildings.jpg/960px-British_Columbia_Parliament_Buildings.jpg",
     collage: [
       { url: "https://images.pexels.com/photos/2845013/pexels-photo-2845013.jpeg?w=400&h=300&fit=crop", label: "Inner Harbour" },
@@ -279,6 +282,7 @@ const cities = [
   {
     name: "Savannah", state: "Georgia", tag: "Emma's City 💛", emoji: "🌿",
     lat: 32.0809, lng: -81.0912, sunny: 216, winter: 50, home: "$320K",
+    walkScore: 42, walkLabel: "Car-Dependent (Historic District 85+ — that square grid is magic)",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Forsyth_Park_Fountain.jpg/960px-Forsyth_Park_Fountain.jpg",
     collage: [
       { url: "https://images.pexels.com/photos/1029604/pexels-photo-1029604.jpeg?w=400&h=300&fit=crop", label: "Spanish Moss" },
@@ -315,6 +319,7 @@ const cities = [
   {
     name: "Annapolis", state: "Maryland", tag: "The Complete Package", emoji: "⚓",
     lat: 38.9784, lng: -76.4922, sunny: 205, winter: 37, home: "$475K",
+    walkScore: 52, walkLabel: "Somewhat Walkable (City Dock area ~65, suburbs need a car)",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Annapolis_Maryland.jpg/960px-Annapolis_Maryland.jpg",
     collage: [
       { url: "https://images.pexels.com/photos/1295036/pexels-photo-1295036.jpeg?w=400&h=300&fit=crop", label: "Sailboats at Dock" },
@@ -352,6 +357,7 @@ const cities = [
   {
     name: "Wilmington", state: "Delaware", tag: "The Sleeper Pick 👀", emoji: "🚂",
     lat: 39.7391, lng: -75.5398, sunny: 202, winter: 34, home: "$280K",
+    walkScore: 72, walkLabel: "Very Walkable (Trolley Square/Riverfront/downtown core are legit)",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Longwood_Gardens.jpg/960px-Longwood_Gardens.jpg",
     collage: [
       { url: "https://images.pexels.com/photos/2875432/pexels-photo-2875432.jpeg?w=400&h=300&fit=crop", label: "Longwood Gardens" },
@@ -389,6 +395,7 @@ const cities = [
   {
     name: "Hudson Valley", state: "New York", tag: "Train to Rob's Old City", emoji: "🚃",
     lat: 41.5, lng: -73.9, sunny: 200, winter: 32, home: "$400K",
+    walkScore: 35, walkLabel: "Car-Dependent (Beacon Main St & Cold Spring are walkable strips, rest isn't)",
     photo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Hudson_River_from_Bear_Mountain.jpg",
     collage: [
       { url: "https://images.pexels.com/photos/1563256/pexels-photo-1563256.jpeg?w=400&h=300&fit=crop", label: "Fall Foliage" },
@@ -425,6 +432,7 @@ const cities = [
   {
     name: "Alexandria", state: "Virginia", tag: "Annapolis with a Subway", emoji: "🏛️",
     lat: 38.8048, lng: -77.0469, sunny: 210, winter: 36, home: "$650K",
+    walkScore: 57, walkLabel: "Somewhat Walkable (Old Town & Del Ray = 90+, with Metro!)",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Old_Town_Alexandria_from_George_Washington_Masonic_National_Memorial.jpg/960px-Old_Town_Alexandria_from_George_Washington_Masonic_National_Memorial.jpg",
     collage: [
       { url: "https://images.pexels.com/photos/2092897/pexels-photo-2092897.jpeg?w=400&h=300&fit=crop", label: "Brick Row Houses" },
@@ -462,6 +470,7 @@ const cities = [
   {
     name: "Santa Barbara", state: "California", tag: "The Premium Pick 🍷", emoji: "🌅",
     lat: 34.4208, lng: -119.6982, sunny: 283, winter: 54, home: "$1.5M",
+    walkScore: 55, walkLabel: "Somewhat Walkable (State St/Funk Zone ~70, rest is car life)",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Santa_Barbara_Courthouse.jpg/960px-Santa_Barbara_Courthouse.jpg",
     collage: [
       { url: "https://images.pexels.com/photos/1268855/pexels-photo-1268855.jpeg?w=400&h=300&fit=crop", label: "Red Tile Roofs" },
@@ -498,6 +507,7 @@ const cities = [
   {
     name: "San Luis Obispo", state: "California", tag: "The Happy Place 😊", emoji: "🌻",
     lat: 35.2828, lng: -120.6596, sunny: 275, winter: 45, home: "$850K",
+    walkScore: 56, walkLabel: "Somewhat Walkable (cute downtown core, but you need a car daily)",
     photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Mission_San_Luis_Obispo.jpg/960px-Mission_San_Luis_Obispo.jpg",
     collage: [
       { url: "https://images.pexels.com/photos/1032650/pexels-photo-1032650.jpeg?w=400&h=300&fit=crop", label: "California Coast" },
@@ -530,6 +540,44 @@ const cities = [
       { name: "Avila Beach (15 min)", desc: "Actual beach town on the water. Small, sunny (even when SLO is foggy), boardwalk. Vacation-vibe living.", price: "$900K–$1.5M" },
       { name: "Pismo Beach (15 min south)", desc: "Classic California beach town. Pier, clam chowder, monarch butterflies. More affordable beach option.", price: "$800K–$1.3M" },
       { name: "Morro Bay (20 min north)", desc: "Morro Rock, fishing village charm, otters in the harbor. Funky, artsy, affordable for the coast.", price: "$700K–$1M" }
+    ]
+  },
+  {
+    name: "Pasadena", state: "California", tag: "California's Evanston", emoji: "🏡",
+    lat: 34.1478, lng: -118.1445, sunny: 286, winter: 52, home: "$1.1M",
+    walkScore: 58, walkLabel: "Somewhat Walkable (Old Town ~75, South Lake Ave solid, rest is LA sprawl)",
+    photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Pasadena_City_Hall_2.jpg/960px-Pasadena_City_Hall_2.jpg",
+    collage: [
+      { url: "https://images.pexels.com/photos/1268855/pexels-photo-1268855.jpeg?w=400&h=300&fit=crop", label: "Craftsman Homes" },
+      { url: "https://images.pexels.com/photos/2404046/pexels-photo-2404046.jpeg?w=400&h=300&fit=crop", label: "Rose Parade" },
+      { url: "https://images.pexels.com/photos/3224154/pexels-photo-3224154.jpeg?w=400&h=300&fit=crop", label: "Huntington Gardens" },
+      { url: "https://images.pexels.com/photos/1563256/pexels-photo-1563256.jpeg?w=400&h=300&fit=crop", label: "Mountain Views" }
+    ],
+    vibe: "If Evanston picked up and moved to the San Gabriel Mountains. Craftsman bungalows on tree-lined streets. The Rose Bowl. The Huntington Library and Gardens — world-class art in a setting that looks like a botanical dream. Old Town buzzes with restaurants and bookshops. Caltech and JPL mean your neighbors literally build Mars rovers. All the culture of LA, none of the chaos. 286 sunny days.",
+    water: "No ocean (45 min to beach) — but mountain views everywhere",
+    safety: { score: 200, label: "🟢 Very safe", pct: 80 },
+    transit: { stars: 3, label: "Metro Gold Line to downtown LA, decent bus network" },
+    architecture: { stars: 5, label: "Craftsman mecca (Gamble House!), Spanish Colonial, City Hall is gorgeous" },
+    airport: "LAX 45 min, BUR (Burbank) 20 min",
+    homeVal: 1100, note: "🏡 Called it 'California's Evanston' for a reason — college-town energy, walkable center, progressive, gorgeous old homes, near but not in the big city.",
+    transitRoutes: [
+      { to: "Downtown Los Angeles", mode: "🚇", time: "25 min (Metro Gold Line)" },
+      { to: "Santa Monica Beach", mode: "🚇🚗", time: "45 min–1 hr" },
+      { to: "Burbank Airport", mode: "🚗", time: "20 min" },
+      { to: "San Diego", mode: "🚗", time: "2 hrs (I-5)" }
+    ],
+    airports: [
+      { code: "BUR", name: "Hollywood Burbank", dist: "20 min", intl: false },
+      { code: "LAX", name: "Los Angeles Intl", dist: "45 min", intl: true },
+      { code: "ONT", name: "Ontario Intl", dist: "40 min", intl: true }
+    ],
+    houseStyles: ["Craftsman Bungalow", "Spanish Colonial Revival", "Mediterranean", "Mid-Century Modern", "Tudor Revival", "Victorian"],
+    neighborhoods: [
+      { name: "Old Town Pasadena", desc: "The walkable heart. Colorado Boulevard lined with shops, restaurants, galleries. Where the Rose Parade happens. Condos and townhomes mixed with historic buildings.", price: "$700K–$1.2M" },
+      { name: "Bungalow Heaven", desc: "Nationally designated landmark district. 800+ Craftsman bungalows from 1900-1930. Tree-lined streets, porch culture, annual home tour. THE Craftsman neighborhood.", price: "$900K–$1.4M" },
+      { name: "South Pasadena (adjacent)", desc: "Its own city but feels like an extension. Small-town main street, top schools, beautiful old homes. Where they filmed Halloween. Walkable, charming.", price: "$1.1M–$1.8M" },
+      { name: "Madison Heights / Washington Square", desc: "Near Caltech. Mix of Craftsman and Spanish Colonial homes. Tree-lined, quiet, intellectual vibe. Walkable to South Lake Ave shops.", price: "$1M–$1.6M" },
+      { name: "Altadena (north)", desc: "Unincorporated, more affordable, foothill views. Bigger lots, more diverse. Christmas Tree Lane is famous. Nature is your backyard.", price: "$800K–$1.2M" }
     ]
   }
 ];
@@ -600,6 +648,10 @@ function makePopup(c) {
           <div class="popup-stat-value">${c.home}</div>
         </div>
         <div class="popup-stat">
+          <div class="popup-stat-label">🚶 Walk Score</div>
+          <div class="popup-stat-value">${c.walkScore || '—'}<span style="font-size:11px;color:#9e9486">/100</span></div>
+        </div>
+        <div class="popup-stat" style="grid-column: 1 / -1">
           <div class="popup-stat-label">✈️ Airport</div>
           <div class="popup-stat-value" style="font-size:11px">${c.airport}</div>
         </div>
@@ -609,6 +661,11 @@ function makePopup(c) {
         <div class="popup-stat-value" style="font-size:13px;font-weight:400">${c.water}</div>
       </div>
       <div class="popup-section-label">Ratings</div>
+      <div class="popup-bar-row">
+        <span class="popup-bar-label">Walkability</span>
+        <div class="popup-bar-track"><div class="popup-bar-fill" style="width:${c.walkScore || 0}%;background:${barColor(c.walkScore || 0)}"></div></div>
+      </div>
+      <div style="font-size:11px;color:#9e9486;margin:-2px 0 8px 98px">${c.walkLabel || ''}</div>
       <div class="popup-bar-row">
         <span class="popup-bar-label">Safety</span>
         <div class="popup-bar-track"><div class="popup-bar-fill" style="width:${c.safety.pct}%;background:${barColor(c.safety.pct)}"></div></div>
